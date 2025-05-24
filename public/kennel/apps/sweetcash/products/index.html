@@ -15,16 +15,25 @@
         .card-glow {
             box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
             transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
         }
         .card-glow:hover {
             box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
             transform: translateY(-5px);
         }
-        .space-bg {
-            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+        .cookie-bg {
+            background-color: #FFF5E6;
+            background-image: 
+                radial-gradient(circle at 25px 25px, #FFD700 2%, transparent 0%),
+                radial-gradient(circle at 75px 75px, #FFA500 2%, transparent 0%),
+                radial-gradient(circle at 125px 125px, #FFD700 2%, transparent 0%),
+                radial-gradient(circle at 175px 175px, #FFA500 2%, transparent 0%),
+                radial-gradient(circle at 225px 225px, #FFD700 2%, transparent 0%),
+                radial-gradient(circle at 275px 275px, #FFA500 2%, transparent 0%),
+                radial-gradient(circle at 325px 325px, #FFD700 2%, transparent 0%),
+                radial-gradient(circle at 375px 375px, #FFA500 2%, transparent 0%);
+            background-size: 400px 400px;
         }
         .chat-box {
             background: rgba(255, 255, 255, 0.95);
@@ -51,6 +60,14 @@
             display: flex;
             gap: 0.5rem;
             margin-top: 0.5rem;
+        }
+        .product-card {
+            position: relative;
+            z-index: 1;
+        }
+        .main-content {
+            position: relative;
+            z-index: 2;
         }
     </style>
     <script>
@@ -175,7 +192,7 @@
         ];
     </script>
 </head>
-<body class="bg-gray-100 space-bg">
+<body class="cookie-bg">
     <!-- Header with Language Toggle -->
     <header class="bg-white shadow-md">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -193,10 +210,10 @@
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8">
+    <main class="container mx-auto px-4 py-8 main-content">
         <div class="text-center mb-12">
             <h1 class="text-4xl font-bold mb-2 gold-gradient" data-lang="title">Our Products</h1>
-            <p class="text-xl text-white" data-lang="subtitle">Delicious treats made with love</p>
+            <p class="text-xl text-gray-700" data-lang="subtitle">Delicious treats made with love</p>
         </div>
 
         <!-- Tab Navigation -->
@@ -221,7 +238,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Product Cards -->
                     <template id="product-card-template">
-                        <div class="bg-white rounded-lg shadow-lg overflow-hidden card-glow">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden card-glow product-card">
                             <img src="" alt="" class="w-full h-48 object-cover">
                             <div class="p-6">
                                 <h3 class="text-xl font-semibold mb-2 gold-gradient"></h3>
