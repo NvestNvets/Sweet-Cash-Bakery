@@ -14,12 +14,11 @@
         }
         .product-card {
             transition: all 0.3s ease-in-out;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: #ffffff;
         }
         .product-card:hover {
-            transform: scale(1.02) translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         .cookie-bg {
             background-color: #FFF5E6;
@@ -80,6 +79,8 @@
         .tab-button {
             transition: all 0.3s ease-in-out;
             position: relative;
+            padding: 1rem 2rem;
+            font-weight: 500;
         }
         .tab-button::after {
             content: '';
@@ -115,7 +116,10 @@
                 getStarted: "Get Started",
                 singleOrder: "Order Single",
                 diyKit: "Try DIY Kit",
-                bulkOrder: "Bulk Catering Kit"
+                bulkOrder: "Bulk Catering Kit",
+                products: "Products",
+                diyKits: "DIY Kits",
+                catering: "Catering"
             },
             es: {
                 title: "Productos Sweet Ca$h",
@@ -126,7 +130,10 @@
                 getStarted: "Comenzar",
                 singleOrder: "Pedido Individual",
                 diyKit: "Kit DIY",
-                bulkOrder: "Kit de Catering"
+                bulkOrder: "Kit de Catering",
+                products: "Productos",
+                diyKits: "Kits DIY",
+                catering: "Catering"
             }
         };
 
@@ -139,7 +146,8 @@
                 price: 4.99,
                 tagline: 'Gourmet cookie made for cash',
                 description: 'Our signature chocolate chip cookie that turns into profit',
-                inStock: true
+                inStock: true,
+                category: 'products'
             },
             {
                 id: 'brookie',
@@ -148,7 +156,8 @@
                 price: 5.99,
                 tagline: 'Where brownie meets cookie',
                 description: 'A delicious brownie-cookie hybrid that sells itself',
-                inStock: true
+                inStock: true,
+                category: 'products'
             },
             {
                 id: 'almond-bar',
@@ -157,7 +166,8 @@
                 price: 6.99,
                 tagline: 'Crunchy profit in every bar',
                 description: 'Premium almond bar with honey drizzle',
-                inStock: true
+                inStock: true,
+                category: 'products'
             },
             {
                 id: 'blueberry-muffin',
@@ -166,7 +176,8 @@
                 price: 4.99,
                 tagline: 'Fresh berries, fresh profits',
                 description: 'Fresh blueberry muffin with streusel topping',
-                inStock: true
+                inStock: true,
+                category: 'products'
             },
             {
                 id: 'bran-muffin',
@@ -175,7 +186,8 @@
                 price: 4.99,
                 tagline: 'Healthy choice, healthy returns',
                 description: 'Wholesome bran muffin with raisins',
-                inStock: true
+                inStock: true,
+                category: 'products'
             },
             {
                 id: 'candy-month',
@@ -184,14 +196,35 @@
                 price: 7.99,
                 tagline: 'Monthly surprise, monthly profits',
                 description: 'Special seasonal candy treat',
-                inStock: false
+                inStock: false,
+                category: 'products'
+            },
+            {
+                id: 'cookie-kit',
+                name: 'Cookie Kit 🍪',
+                image: '/kennel/apps/sweetcash/assets/images/cookie-kit.jpg',
+                price: 29.99,
+                tagline: 'Bake your own profit',
+                description: 'Complete kit to make 24 premium cookies',
+                inStock: true,
+                category: 'diy'
+            },
+            {
+                id: 'corporate-box',
+                name: 'Corporate Cookie Box 📦',
+                image: '/kennel/apps/sweetcash/assets/images/corporate-box.jpg',
+                price: 99.99,
+                tagline: 'Bulk orders, bulk profits',
+                description: '50 premium cookies for corporate events',
+                inStock: true,
+                category: 'catering'
             }
         ];
     </script>
 </head>
-<body class="cookie-bg">
+<body class="bg-white">
     <!-- Sticky Header with Language Toggle -->
-    <header class="bg-white/80 backdrop-blur-md shadow-md sticky top-0 z-50">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-4">
                 <a href="/kennel/apps/sweetcash/index.html" class="text-blue-500 hover:text-blue-600 transition-colors" data-lang="backToHome">
@@ -213,12 +246,19 @@
             <p class="text-2xl text-gray-700" data-lang="subtitle">Premium baked goods for profit</p>
         </div>
 
+        <!-- Tab Navigation -->
+        <div class="flex justify-center space-x-8 mb-12">
+            <button onclick="showTab('products')" class="tab-button active" data-lang="products">Products</button>
+            <button onclick="showTab('diy')" class="tab-button" data-lang="diyKits">DIY Kits</button>
+            <button onclick="showTab('catering')" class="tab-button" data-lang="catering">Catering</button>
+        </div>
+
         <!-- Product Grid -->
         <div class="max-w-7xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Product Cards -->
                 <template id="product-card-template">
-                    <div class="product-card rounded-2xl shadow-xl overflow-hidden">
+                    <div class="product-card rounded-2xl shadow-md overflow-hidden" data-category="">
                         <div class="relative">
                             <img src="" alt="" class="w-full h-64 object-cover">
                             <img src="/kennel/assets/images/k9-cooks-avatar.jpg" alt="K9 Cooks" class="k9-avatar">
@@ -251,6 +291,22 @@
             });
         }
 
+        // Show selected tab
+        function showTab(category) {
+            // Update active tab
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.toLowerCase().includes(category)) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Show/hide cards
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.style.display = card.dataset.category === category ? 'block' : 'none';
+            });
+        }
+
         // Render products with enhanced UI
         function renderProducts() {
             const container = document.querySelector('.grid');
@@ -260,6 +316,8 @@
 
             products.forEach(item => {
                 const card = template.content.cloneNode(true);
+                const cardElement = card.querySelector('.product-card');
+                cardElement.dataset.category = item.category;
                 
                 const img = card.querySelector('img:first-of-type');
                 img.src = item.image;
@@ -281,6 +339,9 @@
                 
                 container.appendChild(card);
             });
+
+            // Show products tab by default
+            showTab('products');
         }
 
         // Initialize with enhanced error handling
