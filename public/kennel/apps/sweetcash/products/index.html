@@ -35,39 +35,36 @@
                 radial-gradient(circle at 375px 375px, #FFA500 2%, transparent 0%);
             background-size: 400px 400px;
         }
-        .chat-box {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 12px;
-            padding: 1rem;
-            margin-top: 1rem;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-        }
         .k9-avatar {
-            width: 40px;
-            height: 40px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            margin-right: 0.5rem;
-        }
-        .chat-message {
-            display: flex;
-            align-items: start;
-            margin-bottom: 0.5rem;
-        }
-        .chat-content {
-            flex: 1;
-        }
-        .chat-input {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.5rem;
+            position: absolute;
+            top: -30px;
+            right: 20px;
+            border: 3px solid white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
         }
         .product-card {
             position: relative;
             z-index: 1;
+            min-height: 500px;
         }
         .main-content {
             position: relative;
             z-index: 2;
+        }
+        .cta-button {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
         }
     </style>
     <script>
@@ -78,116 +75,84 @@
         // Language strings
         const translations = {
             en: {
-                title: "Our Products",
-                subtitle: "Delicious treats made with love",
+                title: "Sweet Ca$h Products",
+                subtitle: "Premium baked goods for profit",
                 backToHome: "Back to Home",
                 languageToggle: "Language",
-                addToCart: "Add to Cart",
-                viewDetails: "View Details",
-                price: "Price",
-                outOfStock: "Out of Stock",
-                comingSoon: "Coming Soon",
-                productsTab: "Products",
-                diyKitsTab: "DIY Kits",
-                cateringTab: "Catering"
+                viewMore: "View More",
+                getStarted: "Get Started",
+                singleOrder: "Order Single",
+                diyKit: "Try DIY Kit",
+                bulkOrder: "Bulk Catering Kit"
             },
             es: {
-                title: "Nuestros Productos",
-                subtitle: "Deliciosos postres hechos con amor",
+                title: "Productos Sweet Ca$h",
+                subtitle: "Productos horneados premium para ganancias",
                 backToHome: "Volver al Inicio",
                 languageToggle: "Idioma",
-                addToCart: "Agregar al Carrito",
-                viewDetails: "Ver Detalles",
-                price: "Precio",
-                outOfStock: "Agotado",
-                comingSoon: "Próximamente",
-                productsTab: "Productos",
-                diyKitsTab: "Kits DIY",
-                cateringTab: "Catering"
+                viewMore: "Ver Más",
+                getStarted: "Comenzar",
+                singleOrder: "Pedido Individual",
+                diyKit: "Kit DIY",
+                bulkOrder: "Kit de Catering"
             }
         };
 
-        // Product data with emojis and K9 descriptions
+        // Product data with emojis and taglines
         const products = [
             {
                 id: 'cash-cookie',
                 name: 'Cash Cookie 💰',
                 image: '/kennel/apps/sweetcash/assets/images/cash-cookie.jpg',
                 price: 4.99,
-                description: 'Our signature chocolate chip cookie',
-                inStock: true,
-                k9Description: "Woof! I'm K9 Cooks, and I'm excited to tell you about our famous Cash Cookie! 🍪 This isn't just any cookie - it's our signature creation that combines premium chocolate chips with a secret blend of ingredients. Each bite is like finding a treasure! 💎"
+                tagline: 'Gourmet cookie made for cash',
+                description: 'Our signature chocolate chip cookie that turns into profit',
+                inStock: true
             },
             {
                 id: 'brookie',
                 name: 'Brooklyn Brookie 🏙️',
                 image: '/kennel/apps/sweetcash/assets/images/brookie.jpg',
                 price: 5.99,
-                description: 'A delicious brownie-cookie hybrid',
-                inStock: true,
-                k9Description: "Hey there! K9 Cooks here! 🐕 The Brooklyn Brookie is my personal favorite - it's where the best of brownies meets the best of cookies! Perfect for those who can't decide between the two. It's like having the best of both worlds in one delicious treat! 🌟"
+                tagline: 'Where brownie meets cookie',
+                description: 'A delicious brownie-cookie hybrid that sells itself',
+                inStock: true
             },
             {
                 id: 'almond-bar',
-                name: "It's Almond Bar 🌰",
+                name: "Honey It's Almond Bar 🌰",
                 image: '/kennel/apps/sweetcash/assets/images/almond-bar.jpg',
                 price: 6.99,
-                description: 'Crunchy almond bar with chocolate drizzle',
-                inStock: true,
-                k9Description: "Woof! 🐾 This Almond Bar is a masterpiece of crunch and sweetness! Each bar is packed with premium almonds and finished with our signature chocolate drizzle. It's not just a snack, it's an experience! ✨"
+                tagline: 'Crunchy profit in every bar',
+                description: 'Premium almond bar with honey drizzle',
+                inStock: true
             },
             {
                 id: 'blueberry-muffin',
-                name: 'Blueberry Muffin 🫐',
+                name: "Blue's Blueberry Muffin 🫐",
                 image: '/kennel/apps/sweetcash/assets/images/blueberry-muffin.jpg',
                 price: 4.99,
+                tagline: 'Fresh berries, fresh profits',
                 description: 'Fresh blueberry muffin with streusel topping',
-                inStock: true,
-                k9Description: "Hello! K9 Cooks at your service! 🐕‍🦺 Our Blueberry Muffins are made with fresh, plump blueberries and topped with a delicious streusel crumble. Each bite is like a little piece of heaven! Perfect for breakfast or any time of day! 🌅"
+                inStock: true
             },
             {
                 id: 'bran-muffin',
                 name: "It's a Bran Muffin 🌾",
                 image: '/kennel/apps/sweetcash/assets/images/bran-muffin.jpg',
                 price: 4.99,
-                description: 'Healthy bran muffin with raisins',
-                inStock: true,
-                k9Description: "Woof! 🐾 Don't let the word 'bran' fool you - this muffin is anything but boring! Packed with wholesome ingredients and sweet raisins, it's the perfect balance of healthy and delicious. A great way to start your day! 🌞"
+                tagline: 'Healthy choice, healthy returns',
+                description: 'Wholesome bran muffin with raisins',
+                inStock: true
             },
             {
                 id: 'candy-month',
                 name: 'Candy of the Month 🍬',
                 image: '/kennel/apps/sweetcash/assets/images/candy-month.jpg',
                 price: 7.99,
+                tagline: 'Monthly surprise, monthly profits',
                 description: 'Special seasonal candy treat',
-                inStock: false,
-                k9Description: "Hey there! K9 Cooks here! 🐕 Our Candy of the Month is a special treat that changes with the seasons. Each month brings a new surprise, making it the perfect gift for the candy lover in your life! 🎁"
-            }
-        ];
-
-        // DIY Kits data with emojis and K9 descriptions
-        const diyKits = [
-            {
-                id: 'cookie-kit',
-                name: 'Cookie Kit 🧰',
-                image: '/kennel/apps/sweetcash/assets/images/cookie-kit.jpg',
-                price: 29.99,
-                description: 'Make your own Sweet Ca$h cookies at home',
-                inStock: true,
-                k9Description: "Woof! 🐾 I'm K9 Cooks, and I'm here to help you become a master baker! Our Cookie Kit includes everything you need to make our famous cookies at home. I'll guide you through each step, making it fun and easy! 🎯"
-            }
-        ];
-
-        // Catering data with emojis and K9 descriptions
-        const cateringKits = [
-            {
-                id: 'corporate-box',
-                name: 'Corporate Cookie Box 📦',
-                image: '/kennel/apps/sweetcash/assets/images/corporate-box.jpg',
-                price: 149.99,
-                description: '50 assorted cookies for your next meeting',
-                inStock: true,
-                k9Description: "Hello! K9 Cooks here! 🐕‍🦺 Looking to impress your team? Our Corporate Cookie Box is the perfect solution! Each box contains 50 assorted cookies, beautifully packaged and ready to make your meeting or event special. Let me help you plan the perfect treat for your team! 🎉"
+                inStock: false
             }
         ];
     </script>
@@ -212,111 +177,30 @@
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8 main-content">
         <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold mb-2 gold-gradient" data-lang="title">Our Products</h1>
-            <p class="text-xl text-gray-700" data-lang="subtitle">Delicious treats made with love</p>
+            <h1 class="text-5xl font-bold mb-4 gold-gradient" data-lang="title">Sweet Ca$h Products</h1>
+            <p class="text-2xl text-gray-700" data-lang="subtitle">Premium baked goods for profit</p>
         </div>
 
-        <!-- Tab Navigation -->
-        <div class="max-w-6xl mx-auto mb-8">
-            <div class="flex space-x-4 border-b">
-                <button onclick="switchTab('products')" class="px-6 py-3 font-semibold text-orange-500 border-b-2 border-orange-500" data-lang="productsTab">
-                    Products
-                </button>
-                <button onclick="switchTab('diy-kits')" class="px-6 py-3 font-semibold text-gray-500 hover:text-orange-500" data-lang="diyKitsTab">
-                    DIY Kits
-                </button>
-                <button onclick="switchTab('catering')" class="px-6 py-3 font-semibold text-gray-500 hover:text-orange-500" data-lang="cateringTab">
-                    Catering
-                </button>
-            </div>
-        </div>
-
-        <!-- Tab Content -->
-        <div class="max-w-6xl mx-auto">
-            <!-- Products Tab -->
-            <div id="products-tab" class="tab-content">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Product Cards -->
-                    <template id="product-card-template">
-                        <div class="bg-white rounded-lg shadow-lg overflow-hidden card-glow product-card">
-                            <img src="" alt="" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2 gold-gradient"></h3>
-                                <p class="text-2xl font-bold text-orange-500 mb-4"></p>
-                                <div class="flex space-x-4">
-                                    <button class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
-                                        Add to Cart
-                                    </button>
-                                    <button class="flex-1 border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors" data-lang="viewDetails">
-                                        View Details
-                                    </button>
-                                </div>
-                                <div class="chat-box mt-4">
-                                    <div class="chat-message">
-                                        <img src="/kennel/assets/images/k9-cooks-avatar.jpg" alt="K9 Cooks" class="k9-avatar">
-                                        <div class="chat-content">
-                                            <p class="text-sm text-gray-700"></p>
-                                        </div>
-                                    </div>
-                                    <div class="chat-input">
-                                        <input type="text" placeholder="Ask K9 Cooks..." class="flex-1 px-3 py-2 border rounded-lg">
-                                        <button class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">Send</button>
-                                    </div>
-                                </div>
+        <!-- Product Grid -->
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Product Cards -->
+                <template id="product-card-template">
+                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-glow product-card">
+                        <img src="" alt="" class="w-full h-64 object-cover">
+                        <div class="p-8">
+                            <img src="/kennel/assets/images/k9-cooks-avatar.jpg" alt="K9 Cooks" class="k9-avatar">
+                            <h3 class="text-2xl font-bold mb-2 gold-gradient"></h3>
+                            <p class="text-lg text-gray-600 mb-4"></p>
+                            <p class="text-3xl font-bold text-orange-500 mb-6"></p>
+                            <div class="flex flex-col space-y-4">
+                                <button class="cta-button w-full" data-lang="viewMore">
+                                    View More
+                                </button>
                             </div>
                         </div>
-                    </template>
-                </div>
-            </div>
-
-            <!-- DIY Kits Tab -->
-            <div id="diy-kits-tab" class="tab-content hidden">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- DIY Kit Cards -->
-                    <template id="diy-kit-card-template">
-                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                            <img src="" alt="" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2"></h3>
-                                <p class="text-gray-600 mb-4"></p>
-                                <p class="text-2xl font-bold text-orange-500 mb-4"></p>
-                                <div class="flex space-x-4">
-                                    <button class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
-                                        Add to Cart
-                                    </button>
-                                    <button class="flex-1 border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors" data-lang="viewDetails">
-                                        View Details
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                </div>
-            </div>
-
-            <!-- Catering Tab -->
-            <div id="catering-tab" class="tab-content hidden">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Catering Kit Cards -->
-                    <template id="catering-kit-card-template">
-                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                            <img src="" alt="" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2"></h3>
-                                <p class="text-gray-600 mb-4"></p>
-                                <p class="text-2xl font-bold text-orange-500 mb-4"></p>
-                                <div class="flex space-x-4">
-                                    <button class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
-                                        Add to Cart
-                                    </button>
-                                    <button class="flex-1 border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors" data-lang="viewDetails">
-                                        View Details
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                </div>
+                    </div>
+                </template>
             </div>
         </div>
     </main>
@@ -333,132 +217,44 @@
             });
         }
 
-        // Switch tab function
-        function switchTab(tabId) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.add('hidden');
-            });
-
-            // Show selected tab content
-            document.getElementById(`${tabId}-tab`).classList.remove('hidden');
-
-            // Update tab button styles
-            document.querySelectorAll('.border-b button').forEach(button => {
-                button.classList.remove('text-orange-500', 'border-b-2', 'border-orange-500');
-                button.classList.add('text-gray-500');
-            });
-
-            // Style active tab button
-            const activeButton = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
-            activeButton.classList.remove('text-gray-500');
-            activeButton.classList.add('text-orange-500', 'border-b-2', 'border-orange-500');
-
-            // Render content for the selected tab
-            renderTabContent(tabId);
-        }
-
-        // Render tab content
-        function renderTabContent(tabId) {
-            const container = document.querySelector(`#${tabId}-tab .grid`);
-            const template = document.getElementById(`${tabId.replace('-', '_')}_card_template`);
+        // Render products
+        function renderProducts() {
+            const container = document.querySelector('.grid');
+            const template = document.getElementById('product-card-template');
             
             // Clear existing content
             container.innerHTML = '';
 
-            // Get data based on tab
-            let data;
-            switch (tabId) {
-                case 'products':
-                    data = products;
-                    break;
-                case 'diy-kits':
-                    data = diyKits;
-                    break;
-                case 'catering':
-                    data = cateringKits;
-                    break;
-            }
-
             // Render cards
-            data.forEach(item => {
+            products.forEach(item => {
                 const card = template.content.cloneNode(true);
                 
                 // Set image
-                const img = card.querySelector('img');
+                const img = card.querySelector('img:first-of-type');
                 img.src = item.image;
                 img.alt = item.name;
                 
                 // Set name
                 card.querySelector('h3').textContent = item.name;
                 
+                // Set tagline
+                card.querySelector('p.text-lg').textContent = item.tagline;
+                
                 // Set price
-                card.querySelector('p.text-2xl').textContent = `$${item.price.toFixed(2)}`;
+                card.querySelector('p.text-3xl').textContent = `$${item.price.toFixed(2)}`;
                 
-                // Set K9 description
-                card.querySelector('.chat-content p').textContent = item.k9Description;
+                // View More button
+                const viewMoreBtn = card.querySelector('button');
+                viewMoreBtn.onclick = () => window.location.href = `/kennel/apps/sweetcash/products/${item.id}.html`;
                 
-                // Add to cart button
-                const addToCartBtn = card.querySelector('button:first-of-type');
-                addToCartBtn.onclick = () => addToCart(tabId, item.id);
                 if (!item.inStock) {
-                    addToCartBtn.disabled = true;
-                    addToCartBtn.classList.add('opacity-50', 'cursor-not-allowed');
-                    addToCartBtn.textContent = translations[document.documentElement.lang].outOfStock;
+                    viewMoreBtn.disabled = true;
+                    viewMoreBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    viewMoreBtn.textContent = 'Coming Soon';
                 }
-                
-                // View details button
-                const viewDetailsBtn = card.querySelector('button:last-of-type');
-                viewDetailsBtn.onclick = () => viewDetails(tabId, item.id);
-                
-                // Chat functionality
-                const chatInput = card.querySelector('.chat-input input');
-                const sendButton = card.querySelector('.chat-input button');
-                
-                sendButton.onclick = () => {
-                    const message = chatInput.value.trim();
-                    if (message) {
-                        // Log chat interaction
-                        window.K9Shared.logUsage('Cooks', 'chat_message', {
-                            page: 'products',
-                            item: item.id,
-                            message: message
-                        }).catch(console.error);
-                        
-                        // Clear input
-                        chatInput.value = '';
-                        
-                        // TODO: Implement actual chat response
-                        alert('K9 Cooks will respond to your message soon!');
-                    }
-                };
                 
                 container.appendChild(card);
             });
-        }
-
-        // Add to cart function
-        function addToCart(tabId, productId) {
-            // Log cart addition
-            window.K9Shared.logUsage('Cooks', 'cart_add', {
-                page: 'products',
-                item: productId
-            }).catch(console.error);
-
-            // TODO: Implement cart functionality
-            alert('Added to cart!');
-        }
-
-        // View details function
-        function viewDetails(tabId, productId) {
-            // Log details view
-            window.K9Shared.logUsage('Cooks', 'details_view', {
-                page: 'products',
-                item: productId
-            }).catch(console.error);
-
-            // Navigate to product details page
-            window.location.href = `/kennel/apps/sweetcash/products/${productId}.html`;
         }
 
         // Initialize
@@ -467,8 +263,8 @@
                 // Set initial language
                 toggleLanguage(defaultLang);
                 
-                // Render initial tab content
-                renderTabContent('products');
+                // Render products
+                renderProducts();
                 
                 // Log page view
                 window.K9Shared.logUsage('Cooks', 'page_view', {
@@ -480,7 +276,7 @@
                 console.error('Error initializing page:', error);
                 // Ensure basic functionality works even if initialization fails
                 toggleLanguage(defaultLang);
-                renderTabContent('products');
+                renderProducts();
             }
         });
     </script>
