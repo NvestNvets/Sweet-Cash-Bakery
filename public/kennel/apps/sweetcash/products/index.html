@@ -6,6 +6,53 @@
     <title>Products - Sweet Ca$h Bakery</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/kennel/assets/js/shared.js"></script>
+    <style>
+        .gold-gradient {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .card-glow {
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        .card-glow:hover {
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+            transform: translateY(-5px);
+        }
+        .space-bg {
+            background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .chat-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+        .k9-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        .chat-message {
+            display: flex;
+            align-items: start;
+            margin-bottom: 0.5rem;
+        }
+        .chat-content {
+            flex: 1;
+        }
+        .chat-input {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+    </style>
     <script>
         // Language detection and management
         const userLang = navigator.language || navigator.userLanguage;
@@ -43,84 +90,92 @@
             }
         };
 
-        // Product data
+        // Product data with emojis and K9 descriptions
         const products = [
             {
                 id: 'cash-cookie',
-                name: 'Cash Cookie',
+                name: 'Cash Cookie 💰',
                 image: '/kennel/apps/sweetcash/assets/images/cash-cookie.jpg',
                 price: 4.99,
                 description: 'Our signature chocolate chip cookie',
-                inStock: true
+                inStock: true,
+                k9Description: "Woof! I'm K9 Cooks, and I'm excited to tell you about our famous Cash Cookie! 🍪 This isn't just any cookie - it's our signature creation that combines premium chocolate chips with a secret blend of ingredients. Each bite is like finding a treasure! 💎"
             },
             {
                 id: 'brookie',
-                name: 'Brooklyn Brookie',
+                name: 'Brooklyn Brookie 🏙️',
                 image: '/kennel/apps/sweetcash/assets/images/brookie.jpg',
                 price: 5.99,
                 description: 'A delicious brownie-cookie hybrid',
-                inStock: true
+                inStock: true,
+                k9Description: "Hey there! K9 Cooks here! 🐕 The Brooklyn Brookie is my personal favorite - it's where the best of brownies meets the best of cookies! Perfect for those who can't decide between the two. It's like having the best of both worlds in one delicious treat! 🌟"
             },
             {
                 id: 'almond-bar',
-                name: "It's Almond Bar",
+                name: "It's Almond Bar 🌰",
                 image: '/kennel/apps/sweetcash/assets/images/almond-bar.jpg',
                 price: 6.99,
                 description: 'Crunchy almond bar with chocolate drizzle',
-                inStock: true
+                inStock: true,
+                k9Description: "Woof! 🐾 This Almond Bar is a masterpiece of crunch and sweetness! Each bar is packed with premium almonds and finished with our signature chocolate drizzle. It's not just a snack, it's an experience! ✨"
             },
             {
                 id: 'blueberry-muffin',
-                name: 'Blueberry Muffin',
+                name: 'Blueberry Muffin 🫐',
                 image: '/kennel/apps/sweetcash/assets/images/blueberry-muffin.jpg',
                 price: 4.99,
                 description: 'Fresh blueberry muffin with streusel topping',
-                inStock: true
+                inStock: true,
+                k9Description: "Hello! K9 Cooks at your service! 🐕‍🦺 Our Blueberry Muffins are made with fresh, plump blueberries and topped with a delicious streusel crumble. Each bite is like a little piece of heaven! Perfect for breakfast or any time of day! 🌅"
             },
             {
                 id: 'bran-muffin',
-                name: "It's a Bran Muffin",
+                name: "It's a Bran Muffin 🌾",
                 image: '/kennel/apps/sweetcash/assets/images/bran-muffin.jpg',
                 price: 4.99,
                 description: 'Healthy bran muffin with raisins',
-                inStock: true
+                inStock: true,
+                k9Description: "Woof! 🐾 Don't let the word 'bran' fool you - this muffin is anything but boring! Packed with wholesome ingredients and sweet raisins, it's the perfect balance of healthy and delicious. A great way to start your day! 🌞"
             },
             {
                 id: 'candy-month',
-                name: 'Candy of the Month',
+                name: 'Candy of the Month 🍬',
                 image: '/kennel/apps/sweetcash/assets/images/candy-month.jpg',
                 price: 7.99,
                 description: 'Special seasonal candy treat',
-                inStock: false
+                inStock: false,
+                k9Description: "Hey there! K9 Cooks here! 🐕 Our Candy of the Month is a special treat that changes with the seasons. Each month brings a new surprise, making it the perfect gift for the candy lover in your life! 🎁"
             }
         ];
 
-        // DIY Kits data
+        // DIY Kits data with emojis and K9 descriptions
         const diyKits = [
             {
                 id: 'cookie-kit',
-                name: 'Cookie Kit',
+                name: 'Cookie Kit 🧰',
                 image: '/kennel/apps/sweetcash/assets/images/cookie-kit.jpg',
                 price: 29.99,
                 description: 'Make your own Sweet Ca$h cookies at home',
-                inStock: true
+                inStock: true,
+                k9Description: "Woof! 🐾 I'm K9 Cooks, and I'm here to help you become a master baker! Our Cookie Kit includes everything you need to make our famous cookies at home. I'll guide you through each step, making it fun and easy! 🎯"
             }
         ];
 
-        // Catering data
+        // Catering data with emojis and K9 descriptions
         const cateringKits = [
             {
                 id: 'corporate-box',
-                name: 'Corporate Cookie Box',
+                name: 'Corporate Cookie Box 📦',
                 image: '/kennel/apps/sweetcash/assets/images/corporate-box.jpg',
                 price: 149.99,
                 description: '50 assorted cookies for your next meeting',
-                inStock: true
+                inStock: true,
+                k9Description: "Hello! K9 Cooks here! 🐕‍🦺 Looking to impress your team? Our Corporate Cookie Box is the perfect solution! Each box contains 50 assorted cookies, beautifully packaged and ready to make your meeting or event special. Let me help you plan the perfect treat for your team! 🎉"
             }
         ];
     </script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 space-bg">
     <!-- Header with Language Toggle -->
     <header class="bg-white shadow-md">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -140,8 +195,8 @@
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
         <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold mb-2" data-lang="title">Our Products</h1>
-            <p class="text-xl text-gray-600" data-lang="subtitle">Delicious treats made with love</p>
+            <h1 class="text-4xl font-bold mb-2 gold-gradient" data-lang="title">Our Products</h1>
+            <p class="text-xl text-white" data-lang="subtitle">Delicious treats made with love</p>
         </div>
 
         <!-- Tab Navigation -->
@@ -166,11 +221,10 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Product Cards -->
                     <template id="product-card-template">
-                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden card-glow">
                             <img src="" alt="" class="w-full h-48 object-cover">
                             <div class="p-6">
-                                <h3 class="text-xl font-semibold mb-2"></h3>
-                                <p class="text-gray-600 mb-4"></p>
+                                <h3 class="text-xl font-semibold mb-2 gold-gradient"></h3>
                                 <p class="text-2xl font-bold text-orange-500 mb-4"></p>
                                 <div class="flex space-x-4">
                                     <button class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
@@ -179,6 +233,18 @@
                                     <button class="flex-1 border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors" data-lang="viewDetails">
                                         View Details
                                     </button>
+                                </div>
+                                <div class="chat-box mt-4">
+                                    <div class="chat-message">
+                                        <img src="/kennel/assets/images/k9-cooks-avatar.jpg" alt="K9 Cooks" class="k9-avatar">
+                                        <div class="chat-content">
+                                            <p class="text-sm text-gray-700"></p>
+                                        </div>
+                                    </div>
+                                    <div class="chat-input">
+                                        <input type="text" placeholder="Ask K9 Cooks..." class="flex-1 px-3 py-2 border rounded-lg">
+                                        <button class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600">Send</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -309,11 +375,11 @@
                 // Set name
                 card.querySelector('h3').textContent = item.name;
                 
-                // Set description
-                card.querySelector('p.text-gray-600').textContent = item.description;
-                
                 // Set price
                 card.querySelector('p.text-2xl').textContent = `$${item.price.toFixed(2)}`;
+                
+                // Set K9 description
+                card.querySelector('.chat-content p').textContent = item.k9Description;
                 
                 // Add to cart button
                 const addToCartBtn = card.querySelector('button:first-of-type');
@@ -327,6 +393,28 @@
                 // View details button
                 const viewDetailsBtn = card.querySelector('button:last-of-type');
                 viewDetailsBtn.onclick = () => viewDetails(tabId, item.id);
+                
+                // Chat functionality
+                const chatInput = card.querySelector('.chat-input input');
+                const sendButton = card.querySelector('.chat-input button');
+                
+                sendButton.onclick = () => {
+                    const message = chatInput.value.trim();
+                    if (message) {
+                        // Log chat interaction
+                        window.K9Shared.logUsage('Cooks', 'chat_message', {
+                            page: 'products',
+                            item: item.id,
+                            message: message
+                        }).catch(console.error);
+                        
+                        // Clear input
+                        chatInput.value = '';
+                        
+                        // TODO: Implement actual chat response
+                        alert('K9 Cooks will respond to your message soon!');
+                    }
+                };
                 
                 container.appendChild(card);
             });
