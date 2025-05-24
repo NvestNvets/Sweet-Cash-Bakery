@@ -4,113 +4,216 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cash Cookie - Sweet Ca$h Bakery</title>
-    <link rel="stylesheet" href="/sweetcash/assets/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/kennel/assets/js/shared.js"></script>
+    <script>
+        // Language detection and management
+        const userLang = navigator.language || navigator.userLanguage;
+        const defaultLang = userLang.startsWith('es') ? 'es' : 'en';
+        
+        // Language strings
+        const translations = {
+            en: {
+                title: "Cash Cookie",
+                subtitle: "Our signature chocolate chip cookie",
+                backToProducts: "← Back to Products",
+                languageToggle: "Language",
+                description: "Description",
+                descriptionText: "Our signature Cash Cookie is a perfect blend of buttery goodness and rich chocolate chips. Each bite brings a delightful crunch followed by a soft, chewy center. Made with premium ingredients and baked to perfection.",
+                ingredients: "Ingredients",
+                ingredientsList: [
+                    "All-purpose flour",
+                    "Butter",
+                    "Brown sugar",
+                    "White sugar",
+                    "Eggs",
+                    "Vanilla extract",
+                    "Chocolate chips",
+                    "Baking soda",
+                    "Salt"
+                ],
+                nutrition: "Nutrition Facts",
+                servingSize: "Serving Size",
+                servingSizeValue: "1 cookie (50g)",
+                calories: "Calories",
+                caloriesValue: "250",
+                addToCart: "Add to Cart",
+                quantity: "Quantity",
+                relatedProducts: "You May Also Like"
+            },
+            es: {
+                title: "Galleta Cash",
+                subtitle: "Nuestra galleta de chocolate insignia",
+                backToProducts: "← Volver a Productos",
+                languageToggle: "Idioma",
+                description: "Descripción",
+                descriptionText: "Nuestra galleta Cash insignia es una mezcla perfecta de bondad mantecosa y ricas chispas de chocolate. Cada mordisco trae un delicioso crujido seguido de un centro suave y masticable. Hecho con ingredientes premium y horneado a la perfección.",
+                ingredients: "Ingredientes",
+                ingredientsList: [
+                    "Harina para todo uso",
+                    "Mantequilla",
+                    "Azúcar morena",
+                    "Azúcar blanca",
+                    "Huevos",
+                    "Extracto de vainilla",
+                    "Chispas de chocolate",
+                    "Bicarbonato de sodio",
+                    "Sal"
+                ],
+                nutrition: "Información Nutricional",
+                servingSize: "Tamaño de la Porción",
+                servingSizeValue: "1 galleta (50g)",
+                calories: "Calorías",
+                caloriesValue: "250",
+                addToCart: "Agregar al Carrito",
+                quantity: "Cantidad",
+                relatedProducts: "También Te Puede Gustar"
+            }
+        };
+    </script>
 </head>
-<body>
-    <!-- Include Header -->
-    <div id="header"></div>
-
-    <!-- Hero Section -->
-    <section class="hero" style="background-image: url('/sweetcash/assets/images/cash-cookie-hero.jpg');">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Cash Cookie</h1>
-                <p class="mt-2">Our signature cookie that started it all - rich, buttery, and unforgettable.</p>
+<body class="bg-gray-100">
+    <!-- Header with Language Toggle -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="/kennel/apps/sweetcash/products/index.html" class="text-blue-500 hover:text-blue-600" data-lang="backToProducts">
+                    ← Back to Products
+                </a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-600" data-lang="languageToggle">Language:</span>
+                <button onclick="toggleLanguage('en')" class="px-2 py-1 rounded hover:bg-gray-200">🇺🇸 EN</button>
+                <button onclick="toggleLanguage('es')" class="px-2 py-1 rounded hover:bg-gray-200">🇪🇸 ES</button>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- Product Details -->
-    <section class="container mt-3">
-        <div class="product-details">
-            <div class="product-image-large">
-                <img src="/sweetcash/assets/images/cash-cookie.jpg" alt="Cash Cookie" class="fade-in">
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-6xl mx-auto">
+            <!-- Product Details -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Product Image -->
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="/kennel/apps/sweetcash/assets/images/cash-cookie.jpg" alt="Cash Cookie" class="w-full h-96 object-cover">
+                </div>
+
+                <!-- Product Info -->
+                <div class="bg-white rounded-lg shadow-lg p-8">
+                    <h1 class="text-4xl font-bold mb-2" data-lang="title">Cash Cookie</h1>
+                    <p class="text-xl text-gray-600 mb-6" data-lang="subtitle">Our signature chocolate chip cookie</p>
+                    <p class="text-3xl font-bold text-orange-500 mb-6">$4.99</p>
+
+                    <!-- Description -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold mb-2" data-lang="description">Description</h2>
+                        <p class="text-gray-600" data-lang="descriptionText">Our signature Cash Cookie is a perfect blend of buttery goodness and rich chocolate chips. Each bite brings a delightful crunch followed by a soft, chewy center. Made with premium ingredients and baked to perfection.</p>
+                    </div>
+
+                    <!-- Ingredients -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold mb-2" data-lang="ingredients">Ingredients</h2>
+                        <ul class="list-disc list-inside text-gray-600">
+                            <template id="ingredient-template">
+                                <li data-lang="ingredientsList.0"></li>
+                            </template>
+                        </ul>
+                    </div>
+
+                    <!-- Nutrition -->
+                    <div class="mb-8">
+                        <h2 class="text-xl font-semibold mb-2" data-lang="nutrition">Nutrition Facts</h2>
+                        <div class="grid grid-cols-2 gap-4 text-gray-600">
+                            <div>
+                                <span class="font-semibold" data-lang="servingSize">Serving Size:</span>
+                                <span data-lang="servingSizeValue">1 cookie (50g)</span>
+                            </div>
+                            <div>
+                                <span class="font-semibold" data-lang="calories">Calories:</span>
+                                <span data-lang="caloriesValue">250</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add to Cart -->
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-2" data-lang="quantity">Quantity</label>
+                            <input type="number" min="1" value="1" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                        <button onclick="addToCart()" class="flex-1 bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="product-info">
-                <h2>Cash Cookie</h2>
-                <p class="product-price">$4.99</p>
-                <p class="product-description">
-                    The original Sweet Ca$h Cookie - a perfect blend of premium butter, 
-                    brown sugar, and our secret ingredient that makes every bite worth its weight in gold.
-                </p>
-                <div class="product-options mt-2">
-                    <a href="#" class="btn btn-primary">Buy Fresh</a>
-                    <a href="/sweetcash/kits/" class="btn btn-secondary">Get DIY Kit</a>
-                    <a href="/sweetcash/catering/" class="btn btn-secondary">Order for Event</a>
+
+            <!-- Related Products -->
+            <div class="mt-12">
+                <h2 class="text-2xl font-bold mb-6" data-lang="relatedProducts">You May Also Like</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Related product cards will be dynamically inserted here -->
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Story Section -->
-    <section class="container mt-3">
-        <div class="story-section">
-            <h2>Why This Cookie Matters</h2>
-            <p class="mt-2">
-                The Cash Cookie is our flagship product that embodies everything Sweet Ca$h Bakery 
-                stands for - quality ingredients, perfect execution, and a taste that keeps customers 
-                coming back. Each cookie is handcrafted with care, ensuring the perfect balance of 
-                crispy edges and chewy center.
-            </p>
-        </div>
-    </section>
-
-    <!-- Ingredients Section -->
-    <section class="container mt-3">
-        <div class="ingredients-section">
-            <h2>Ingredients</h2>
-            <ul class="mt-2">
-                <li>Premium butter</li>
-                <li>Brown sugar</li>
-                <li>Vanilla extract</li>
-                <li>Farm-fresh eggs</li>
-                <li>Special blend flour</li>
-                <li>Sea salt</li>
-                <li>Secret ingredient</li>
-            </ul>
-        </div>
-    </section>
-
-    <!-- Order Options -->
-    <section class="container mt-3 mb-3">
-        <div class="order-options text-center">
-            <h2>How Would You Like to Enjoy Your Cash Cookie?</h2>
-            <div class="options-grid mt-2">
-                <div class="option-card">
-                    <h3>Buy Fresh</h3>
-                    <p>Get freshly baked Cash Cookies delivered to your door.</p>
-                    <a href="#" class="btn btn-primary">Order Now</a>
-                </div>
-                <div class="option-card">
-                    <h3>DIY Kit</h3>
-                    <p>Make your own Cash Cookies at home with our complete kit.</p>
-                    <a href="/sweetcash/kits/" class="btn btn-secondary">Get Kit</a>
-                </div>
-                <div class="option-card">
-                    <h3>Catering</h3>
-                    <p>Order in bulk for your next event or celebration.</p>
-                    <a href="/sweetcash/catering/" class="btn btn-secondary">Catering Info</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Include Footer -->
-    <div id="footer"></div>
+    </main>
 
     <script>
-        // Load header and footer
-        fetch('/sweetcash/components/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header').innerHTML = data;
+        // Language toggle function
+        function toggleLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    if (key.includes('.')) {
+                        const [section, index] = key.split('.');
+                        element.textContent = translations[lang][section][index];
+                    } else {
+                        element.textContent = translations[lang][key];
+                    }
+                }
             });
+        }
 
-        fetch('/sweetcash/components/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer').innerHTML = data;
+        // Render ingredients
+        function renderIngredients() {
+            const container = document.querySelector('.list-disc');
+            const template = document.getElementById('ingredient-template');
+            
+            translations[document.documentElement.lang].ingredientsList.forEach((ingredient, index) => {
+                const li = template.content.cloneNode(true);
+                li.querySelector('li').setAttribute('data-lang', `ingredientsList.${index}`);
+                container.appendChild(li);
             });
+        }
+
+        // Add to cart function
+        function addToCart() {
+            const quantity = document.querySelector('input[type="number"]').value;
+            
+            // Log cart addition
+            window.K9Shared.logUsage('Cooks', 'cart_add', {
+                page: 'product-details',
+                item: 'cash-cookie',
+                quantity: quantity
+            }).catch(console.error);
+
+            // TODO: Implement cart functionality
+            alert(`Added ${quantity} Cash Cookie(s) to cart!`);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleLanguage(defaultLang);
+            renderIngredients();
+            
+            // Log page view
+            window.K9Shared.logUsage('Cooks', 'page_view', {
+                page: 'product-details',
+                item: 'cash-cookie'
+            }).catch(console.error);
+        });
     </script>
 </body>
 </html>

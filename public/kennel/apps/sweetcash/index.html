@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sweet Ca$h Bakery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/kennel/assets/js/shared.js"></script>
+    <script>
+        // Initialize K9Shared if not available
+        window.K9Shared = window.K9Shared || {
+            logUsage: async () => {
+                console.log('Usage logging not available');
+                return Promise.resolve();
+            }
+        };
+
+        // Language detection and management
+        const userLang = navigator.language || navigator.userLanguage;
+        const defaultLang = userLang.startsWith('es') ? 'es' : 'en';
+        
+        // Language strings
+        const translations = {
+            en: {
+                title: "Sweet Ca$h Bakery",
+                subtitle: "Delicious treats with a sweet surprise",
+                backToK9: "← Back to K9 Cooks",
+                languageToggle: "Language",
+                productsTab: "Products",
+                diyKitsTab: "DIY Kits",
+                cateringTab: "Catering",
+                viewAll: "View All",
+                comingSoon: "Coming Soon",
+                learnMore: "Learn More"
+            },
+            es: {
+                title: "Sweet Ca$h Bakery",
+                subtitle: "Deliciosos postres con una dulce sorpresa",
+                backToK9: "← Volver a K9 Cooks",
+                languageToggle: "Idioma",
+                productsTab: "Productos",
+                diyKitsTab: "Kits DIY",
+                cateringTab: "Catering",
+                viewAll: "Ver Todo",
+                comingSoon: "Próximamente",
+                learnMore: "Saber Más"
+            }
+        };
+
+        // Product data
+        const products = [
+            {
+                id: 'cash-cookie',
+                name: 'Cash Cookie',
+                image: '/kennel/apps/sweetcash/assets/images/cash-cookie.jpg',
+                price: 4.99,
+                description: 'Our signature chocolate chip cookie'
+            },
+            {
+                id: 'brookie',
+                name: 'Brooklyn Brookie',
+                image: '/kennel/apps/sweetcash/assets/images/brookie.jpg',
+                price: 5.99,
+                description: 'A delicious brownie-cookie hybrid'
+            },
+            {
+                id: 'almond-bar',
+                name: "It's Almond Bar",
+                image: '/kennel/apps/sweetcash/assets/images/almond-bar.jpg',
+                price: 6.99,
+                description: 'Crunchy almond bar with chocolate drizzle'
+            }
+        ];
+
+        // DIY Kits data
+        const diyKits = [
+            {
+                id: 'cookie-kit',
+                name: 'Cookie Kit',
+                image: '/kennel/apps/sweetcash/assets/images/cookie-kit.jpg',
+                price: 29.99,
+                description: 'Make your own Sweet Ca$h cookies at home'
+            }
+        ];
+
+        // Catering data
+        const cateringKits = [
+            {
+                id: 'corporate-box',
+                name: 'Corporate Cookie Box',
+                image: '/kennel/apps/sweetcash/assets/images/corporate-box.jpg',
+                price: 149.99,
+                description: '50 assorted cookies for your next meeting'
+            }
+        ];
+    </script>
+</head>
+<body class="bg-gray-100">
+    <!-- Header with Language Toggle -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="/kennel/ai-k9s/cooks.html" class="text-blue-500 hover:text-blue-600" data-lang="backToK9">
+                    ← Back to K9 Cooks
+                </a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-600" data-lang="languageToggle">Language:</span>
+                <button onclick="toggleLanguage('en')" class="px-2 py-1 rounded hover:bg-gray-200">🇺🇸 EN</button>
+                <button onclick="toggleLanguage('es')" class="px-2 py-1 rounded hover:bg-gray-200">🇪🇸 ES</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-2" data-lang="title">Sweet Ca$h Bakery</h1>
+            <p class="text-xl text-gray-600" data-lang="subtitle">Delicious treats with a sweet surprise</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="max-w-6xl mx-auto mb-8">
+            <div class="flex space-x-4 border-b">
+                <button onclick="switchTab('products')" class="px-6 py-3 font-semibold text-orange-500 border-b-2 border-orange-500" data-lang="productsTab">
+                    Products
+                </button>
+                <button onclick="switchTab('diy-kits')" class="px-6 py-3 font-semibold text-gray-500 hover:text-orange-500" data-lang="diyKitsTab">
+                    DIY Kits
+                </button>
+                <button onclick="switchTab('catering')" class="px-6 py-3 font-semibold text-gray-500 hover:text-orange-500" data-lang="cateringTab">
+                    Catering
+                </button>
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="max-w-6xl mx-auto">
+            <!-- Products Tab -->
+            <div id="products-tab" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Product Cards -->
+                    <template id="product-card-template">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            <img src="" alt="" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2"></h3>
+                                <p class="text-gray-600 mb-4"></p>
+                                <p class="text-2xl font-bold text-orange-500 mb-4"></p>
+                                <div class="flex space-x-4">
+                                    <button class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
+                                        Add to Cart
+                                    </button>
+                                    <button class="flex-1 border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors" data-lang="viewDetails">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="text-center mt-8">
+                    <a href="/kennel/apps/sweetcash/products/index.html" class="inline-block bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors" data-lang="viewAll">
+                        View All Products
+                    </a>
+                </div>
+            </div>
+
+            <!-- DIY Kits Tab -->
+            <div id="diy-kits-tab" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- DIY Kit Cards -->
+                    <template id="diy-kit-card-template">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            <img src="" alt="" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2"></h3>
+                                <p class="text-gray-600 mb-4"></p>
+                                <p class="text-2xl font-bold text-orange-500 mb-4"></p>
+                                <div class="flex space-x-4">
+                                    <button class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
+                                        Add to Cart
+                                    </button>
+                                    <button class="flex-1 border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors" data-lang="viewDetails">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="text-center mt-8">
+                    <a href="/kennel/apps/sweetcash/diy-kits/index.html" class="inline-block bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors" data-lang="viewAll">
+                        View All DIY Kits
+                    </a>
+                </div>
+            </div>
+
+            <!-- Catering Tab -->
+            <div id="catering-tab" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Catering Kit Cards -->
+                    <template id="catering-kit-card-template">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            <img src="" alt="" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2"></h3>
+                                <p class="text-gray-600 mb-4"></p>
+                                <p class="text-2xl font-bold text-orange-500 mb-4"></p>
+                                <div class="flex space-x-4">
+                                    <button class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
+                                        Add to Cart
+                                    </button>
+                                    <button class="flex-1 border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors" data-lang="viewDetails">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <div class="text-center mt-8">
+                    <a href="/kennel/apps/sweetcash/catering-kits/index.html" class="inline-block bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors" data-lang="viewAll">
+                        View All Catering Options
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Language toggle function
+        function toggleLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Switch tab function
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+
+            // Show selected tab content
+            document.getElementById(`${tabId}-tab`).classList.remove('hidden');
+
+            // Update tab button styles
+            document.querySelectorAll('.border-b button').forEach(button => {
+                button.classList.remove('text-orange-500', 'border-b-2', 'border-orange-500');
+                button.classList.add('text-gray-500');
+            });
+
+            // Style active tab button
+            const activeButton = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            activeButton.classList.remove('text-gray-500');
+            activeButton.classList.add('text-orange-500', 'border-b-2', 'border-orange-500');
+
+            // Render content for the selected tab
+            renderTabContent(tabId);
+        }
+
+        // Render tab content
+        function renderTabContent(tabId) {
+            const container = document.querySelector(`#${tabId}-tab .grid`);
+            const template = document.getElementById(`${tabId.replace('-', '_')}_card_template`);
+            
+            // Clear existing content
+            container.innerHTML = '';
+
+            // Get data based on tab
+            let data;
+            switch (tabId) {
+                case 'products':
+                    data = products;
+                    break;
+                case 'diy-kits':
+                    data = diyKits;
+                    break;
+                case 'catering':
+                    data = cateringKits;
+                    break;
+            }
+
+            // Render cards
+            data.forEach(item => {
+                const card = template.content.cloneNode(true);
+                
+                // Set image
+                const img = card.querySelector('img');
+                img.src = item.image;
+                img.alt = item.name;
+                
+                // Set name
+                card.querySelector('h3').textContent = item.name;
+                
+                // Set description
+                card.querySelector('p.text-gray-600').textContent = item.description;
+                
+                // Set price
+                card.querySelector('p.text-2xl').textContent = `$${item.price.toFixed(2)}`;
+                
+                // Add to cart button
+                const addToCartBtn = card.querySelector('button:first-of-type');
+                addToCartBtn.onclick = () => addToCart(tabId, item.id);
+                
+                // View details button
+                const viewDetailsBtn = card.querySelector('button:last-of-type');
+                viewDetailsBtn.onclick = () => viewDetails(tabId, item.id);
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Add to cart function
+        function addToCart(tabId, itemId) {
+            // Log cart addition
+            window.K9Shared.logUsage('Cooks', 'cart_add', {
+                page: tabId,
+                item: itemId
+            }).catch(console.error);
+
+            // TODO: Implement cart functionality
+            alert('Added to cart!');
+        }
+
+        // View details function
+        function viewDetails(tabId, itemId) {
+            try {
+                // Log details view
+                window.K9Shared.logUsage('Cooks', 'details_view', {
+                    page: tabId,
+                    item: itemId
+                }).catch(console.error);
+
+                // Navigate to details page
+                const url = `/kennel/apps/sweetcash/${tabId}/${itemId}.html`;
+                window.location.href = url;
+            } catch (error) {
+                console.error('Error viewing details:', error);
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                // Set initial language
+                toggleLanguage(defaultLang);
+                
+                // Initialize the products tab
+                const productsTab = document.getElementById('products-tab');
+                if (productsTab) {
+                    productsTab.classList.remove('hidden');
+                }
+                
+                // Render initial products
+                renderTabContent('products');
+                
+                // Log page view without affecting navigation
+                window.K9Shared.logUsage('Cooks', 'page_view', {
+                    page: 'home'
+                }).catch(error => {
+                    console.warn('Failed to log page view:', error);
+                });
+            } catch (error) {
+                console.error('Error initializing page:', error);
+                // Ensure basic functionality works even if initialization fails
+                toggleLanguage(defaultLang);
+                const productsTab = document.getElementById('products-tab');
+                if (productsTab) {
+                    productsTab.classList.remove('hidden');
+                }
+            }
+        });
+
+        // Prevent default form submissions and handle navigation carefully
+        document.addEventListener('submit', (e) => {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html> 

@@ -69,11 +69,11 @@
                 <div class="mb-8">
                     <h3 class="text-2xl font-bold mb-4" data-lang="bakeryTitle">Sweet Ca$h Bakery</h3>
                     <p class="text-gray-600 mb-4" data-lang="bakeryDesc">A complete bakery management system with order processing, partner management, and SMS notifications.</p>
-                    <a href="/kennel/apps/sweetcash/products/index.html" 
+                    <button onclick="launchSweetCashBakery()" 
                        class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors"
                        data-lang="launchTool">
                         Launch Tool →
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -89,6 +89,21 @@
                     element.textContent = translations[lang][key];
                 }
             });
+        }
+
+        // Launch Sweet Ca$h Bakery
+        function launchSweetCashBakery() {
+            try {
+                // Prevent any default behavior
+                event.preventDefault();
+                
+                // Navigate directly to the products page without trailing slash
+                window.location.replace('/kennel/apps/sweetcash/products');
+            } catch (error) {
+                console.error('Error launching Sweet Ca$h Bakery:', error);
+                // Fallback to direct navigation if JavaScript fails
+                window.location.href = '/kennel/apps/sweetcash/products';
+            }
         }
 
         // Initialize with default language

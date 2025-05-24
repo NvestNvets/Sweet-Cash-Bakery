@@ -3,125 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Products - Sweet Ca$h Bakery</title>
-    <link rel="stylesheet" href="/sweetcash/assets/css/style.css">
+    <title>Products - Sweet Ca$h Bakery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/kennel/assets/js/shared.js"></script>
+    <script>
+        // Language detection and management
+        const userLang = navigator.language || navigator.userLanguage;
+        const defaultLang = userLang.startsWith('es') ? 'es' : 'en';
+        
+        // Language strings
+        const translations = {
+            en: {
+                title: "Our Products",
+                subtitle: "Delicious treats made with love",
+                backToHome: "Back to Home",
+                languageToggle: "Language",
+                addToCart: "Add to Cart",
+                viewDetails: "View Details",
+                price: "Price",
+                outOfStock: "Out of Stock",
+                comingSoon: "Coming Soon"
+            },
+            es: {
+                title: "Nuestros Productos",
+                subtitle: "Deliciosos postres hechos con amor",
+                backToHome: "Volver al Inicio",
+                languageToggle: "Idioma",
+                addToCart: "Agregar al Carrito",
+                viewDetails: "Ver Detalles",
+                price: "Precio",
+                outOfStock: "Agotado",
+                comingSoon: "Próximamente"
+            }
+        };
+
+        // Product data
+        const products = [
+            {
+                id: 'cash-cookie',
+                name: 'Cash Cookie',
+                image: '/kennel/apps/sweetcash/assets/images/cash-cookie.jpg',
+                price: 4.99,
+                description: 'Our signature chocolate chip cookie',
+                inStock: true
+            },
+            {
+                id: 'brookie',
+                name: 'Brooklyn Brookie',
+                image: '/kennel/apps/sweetcash/assets/images/brookie.jpg',
+                price: 5.99,
+                description: 'A delicious brownie-cookie hybrid',
+                inStock: true
+            },
+            {
+                id: 'almond-bar',
+                name: "It's Almond Bar",
+                image: '/kennel/apps/sweetcash/assets/images/almond-bar.jpg',
+                price: 6.99,
+                description: 'Crunchy almond bar with chocolate drizzle',
+                inStock: true
+            },
+            {
+                id: 'blueberry-muffin',
+                name: 'Blueberry Muffin',
+                image: '/kennel/apps/sweetcash/assets/images/blueberry-muffin.jpg',
+                price: 4.99,
+                description: 'Fresh blueberry muffin with streusel topping',
+                inStock: true
+            },
+            {
+                id: 'bran-muffin',
+                name: "It's a Bran Muffin",
+                image: '/kennel/apps/sweetcash/assets/images/bran-muffin.jpg',
+                price: 4.99,
+                description: 'Healthy bran muffin with raisins',
+                inStock: true
+            },
+            {
+                id: 'candy-month',
+                name: 'Candy of the Month',
+                image: '/kennel/apps/sweetcash/assets/images/candy-month.jpg',
+                price: 7.99,
+                description: 'Special seasonal candy treat',
+                inStock: false
+            }
+        ];
+    </script>
 </head>
-<body>
-    <!-- Include Header -->
-    <div id="header"></div>
-
-    <!-- Hero Section -->
-    <section class="hero" style="background-image: url('/sweetcash/assets/images/products-hero.jpg');">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Our Products</h1>
-                <p class="mt-2">Discover our delicious treats with sweet surprises inside.</p>
+<body class="bg-gray-100">
+    <!-- Header with Language Toggle -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="/kennel/apps/sweetcash/index.html" class="text-blue-500 hover:text-blue-600" data-lang="backToHome">
+                    ← Back to Home
+                </a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-600" data-lang="languageToggle">Language:</span>
+                <button onclick="toggleLanguage('en')" class="px-2 py-1 rounded hover:bg-gray-200">🇺🇸 EN</button>
+                <button onclick="toggleLanguage('es')" class="px-2 py-1 rounded hover:bg-gray-200">🇪🇸 ES</button>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- Products Grid -->
-    <section class="container mt-3">
-        <div class="product-grid">
-            <!-- Cash Cookie -->
-            <div class="product-card">
-                <img src="/sweetcash/assets/images/cash-cookie.jpg" alt="Cash Cookie" class="product-image">
-                <div class="product-content">
-                    <h3 class="product-title">Cash Cookie</h3>
-                    <p class="product-price">$4.99</p>
-                    <p class="product-description">
-                        Our signature cookie with a sweet surprise inside.
-                    </p>
-                    <a href="/sweetcash/products/cash-cookie.html" class="btn btn-primary">Learn More</a>
-                </div>
-            </div>
-
-            <!-- Brookie -->
-            <div class="product-card">
-                <img src="/sweetcash/assets/images/brookie.jpg" alt="Brookie" class="product-image">
-                <div class="product-content">
-                    <h3 class="product-title">Brookie</h3>
-                    <p class="product-price">$5.99</p>
-                    <p class="product-description">
-                        The perfect marriage of brownie and cookie.
-                    </p>
-                    <a href="/sweetcash/products/brookie.html" class="btn btn-primary">Learn More</a>
-                </div>
-            </div>
-
-            <!-- Muffin -->
-            <div class="product-card">
-                <img src="/sweetcash/assets/images/muffin.jpg" alt="Sweet Ca$h Muffin" class="product-image">
-                <div class="product-content">
-                    <h3 class="product-title">Sweet Ca$h Muffin</h3>
-                    <p class="product-price">$6.99</p>
-                    <p class="product-description">
-                        A morning delight with a sweet surprise.
-                    </p>
-                    <a href="/sweetcash/products/muffin.html" class="btn btn-primary">Learn More</a>
-                </div>
-            </div>
-
-            <!-- Granola -->
-            <div class="product-card">
-                <img src="/sweetcash/assets/images/granola.jpg" alt="Sweet Ca$h Granola" class="product-image">
-                <div class="product-content">
-                    <h3 class="product-title">Sweet Ca$h Granola</h3>
-                    <p class="product-price">$12.99</p>
-                    <p class="product-description">
-                        Healthy and delicious with a sweet surprise.
-                    </p>
-                    <a href="/sweetcash/products/granola.html" class="btn btn-primary">Learn More</a>
-                </div>
-            </div>
-
-            <!-- Fruit -->
-            <div class="product-card">
-                <img src="/sweetcash/assets/images/fruit.jpg" alt="Sweet Ca$h Fruit" class="product-image">
-                <div class="product-content">
-                    <h3 class="product-title">Sweet Ca$h Fruit</h3>
-                    <p class="product-price">$24.99</p>
-                    <p class="product-description">
-                        Fresh, seasonal fruits with a sweet surprise.
-                    </p>
-                    <a href="/sweetcash/products/fruit.html" class="btn btn-primary">Learn More</a>
-                </div>
-            </div>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold mb-2" data-lang="title">Our Products</h1>
+            <p class="text-xl text-gray-600" data-lang="subtitle">Delicious treats made with love</p>
         </div>
-    </section>
 
-    <!-- DIY Kits & Catering -->
-    <section class="container mt-3 mb-3">
-        <div class="options-grid">
-            <div class="option-card">
-                <h3>DIY Kits</h3>
-                <p>Make our delicious treats at home with our complete DIY kits.</p>
-                <a href="/sweetcash/kits/" class="btn btn-secondary">Explore Kits</a>
-            </div>
-            <div class="option-card">
-                <h3>Catering</h3>
-                <p>Order in bulk for your next event or celebration.</p>
-                <a href="/sweetcash/catering/" class="btn btn-secondary">Catering Info</a>
-            </div>
+        <!-- Products Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <!-- Product Cards -->
+            <template id="product-card-template">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <img src="" alt="" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2"></h3>
+                        <p class="text-gray-600 mb-4"></p>
+                        <p class="text-2xl font-bold text-orange-500 mb-4"></p>
+                        <div class="flex space-x-4">
+                            <button class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
+                                Add to Cart
+                            </button>
+                            <button class="flex-1 border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors" data-lang="viewDetails">
+                                View Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </template>
         </div>
-    </section>
-
-    <!-- Include Footer -->
-    <div id="footer"></div>
+    </main>
 
     <script>
-        // Load header and footer
-        fetch('/sweetcash/components/header.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('header').innerHTML = data;
+        // Language toggle function
+        function toggleLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
             });
+        }
 
-        fetch('/sweetcash/components/footer.html')
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('footer').innerHTML = data;
+        // Render products
+        function renderProducts() {
+            const container = document.querySelector('.grid');
+            const template = document.getElementById('product-card-template');
+            
+            products.forEach(product => {
+                const card = template.content.cloneNode(true);
+                
+                // Set product image
+                const img = card.querySelector('img');
+                img.src = product.image;
+                img.alt = product.name;
+                
+                // Set product name
+                card.querySelector('h3').textContent = product.name;
+                
+                // Set product description
+                card.querySelector('p.text-gray-600').textContent = product.description;
+                
+                // Set product price
+                card.querySelector('p.text-2xl').textContent = `$${product.price.toFixed(2)}`;
+                
+                // Add to cart button
+                const addToCartBtn = card.querySelector('button:first-of-type');
+                addToCartBtn.onclick = () => addToCart(product.id);
+                if (!product.inStock) {
+                    addToCartBtn.disabled = true;
+                    addToCartBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    addToCartBtn.textContent = translations[document.documentElement.lang].outOfStock;
+                }
+                
+                // View details button
+                const viewDetailsBtn = card.querySelector('button:last-of-type');
+                viewDetailsBtn.onclick = () => viewDetails(product.id);
+                
+                container.appendChild(card);
             });
+        }
+
+        // Add to cart function
+        function addToCart(productId) {
+            // Log cart addition
+            window.K9Shared.logUsage('Cooks', 'cart_add', {
+                page: 'products',
+                item: productId
+            }).catch(console.error);
+
+            // TODO: Implement cart functionality
+            alert('Added to cart!');
+        }
+
+        // View details function
+        function viewDetails(productId) {
+            // Log details view
+            window.K9Shared.logUsage('Cooks', 'details_view', {
+                page: 'products',
+                item: productId
+            }).catch(console.error);
+
+            // Navigate to product details page
+            window.location.href = `/kennel/apps/sweetcash/products/${productId}.html`;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleLanguage(defaultLang);
+            renderProducts();
+            
+            // Log page view
+            window.K9Shared.logUsage('Cooks', 'page_view', {
+                page: 'products'
+            }).catch(console.error);
+        });
     </script>
 </body>
 </html> 
