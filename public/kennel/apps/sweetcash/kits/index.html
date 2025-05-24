@@ -7,14 +7,31 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="/kennel/assets/js/shared.js"></script>
     <style>
+        :root {
+            --color-navy: #223A5E;
+            --color-sky: #A7C7E7;
+            --color-gold: #FFD166;
+            --color-olive: #7FB069;
+            --color-white: #FFFFFF;
+            --color-charcoal: #333333;
+        }
+        body {
+            background: var(--color-sky);
+            color: var(--color-charcoal);
+        }
+        header {
+            background: var(--color-navy);
+            color: var(--color-white);
+        }
         .gold-gradient {
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            background: linear-gradient(90deg, var(--color-gold), var(--color-olive));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         .kit-card {
+            background: var(--color-white);
+            color: var(--color-charcoal);
             transition: all 0.3s ease-in-out;
-            background: #ffffff;
         }
         .kit-card:hover {
             transform: scale(1.02);
@@ -36,8 +53,8 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
         }
         .cta-button {
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            color: white;
+            background: var(--color-gold);
+            color: var(--color-navy);
             font-weight: 600;
             padding: 1rem 2rem;
             border-radius: 9999px;
@@ -46,6 +63,8 @@
             overflow: hidden;
         }
         .cta-button:hover {
+            background: var(--color-olive);
+            color: var(--color-white);
             transform: translateY(-2px);
             box-shadow: 0 4px 6px -1px rgba(255, 215, 0, 0.5), 0 2px 4px -1px rgba(255, 165, 0, 0.3);
         }
