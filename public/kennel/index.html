@@ -5,6 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI K9 Kennel - Your AI Assistant Pack</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .k9-card {
+            transition: all 0.3s ease-in-out;
+        }
+        .k9-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .tab-btn {
+            transition: all 0.3s ease-in-out;
+        }
+        .tab-btn:hover {
+            transform: translateY(-2px);
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+        }
+        .start-tool-btn {
+            background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+            transition: all 0.3s ease-in-out;
+        }
+        .start-tool-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.5), 0 2px 4px -1px rgba(59, 130, 246, 0.3);
+        }
+    </style>
     <script>
         // Language detection and management
         const userLang = navigator.language || navigator.userLanguage;
@@ -89,15 +115,15 @@
         };
     </script>
 </head>
-<body class="bg-gray-100">
-    <!-- Header with Language Toggle -->
-    <header class="bg-white shadow-md">
+<body class="bg-gray-50">
+    <!-- Sticky Header with Language Toggle -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold text-gray-800" data-lang="title">AI K9 Kennel</h1>
             <div class="flex items-center space-x-4">
                 <span class="text-sm text-gray-600" data-lang="languageToggle">Language:</span>
-                <button onclick="toggleLanguage('en')" class="px-2 py-1 rounded hover:bg-gray-200">🇺🇸 EN</button>
-                <button onclick="toggleLanguage('es')" class="px-2 py-1 rounded hover:bg-gray-200">🇪🇸 ES</button>
+                <button onclick="toggleLanguage('en')" class="px-2 py-1 rounded hover:bg-gray-200 transition-colors">🇺🇸 EN</button>
+                <button onclick="toggleLanguage('es')" class="px-2 py-1 rounded hover:bg-gray-200 transition-colors">🇪🇸 ES</button>
             </div>
         </div>
     </header>
@@ -105,23 +131,23 @@
     <!-- Main Content -->
     <main class="container mx-auto px-4 py-8">
         <!-- Group Tabs -->
-        <div class="flex space-x-4 mb-8 overflow-x-auto">
-            <button class="tab-btn active px-4 py-2 rounded-lg bg-blue-500 text-white" data-group="veterans" data-lang="veterans">
+        <div class="flex space-x-4 mb-8 overflow-x-auto pb-2">
+            <button class="tab-btn active px-6 py-3 rounded-lg text-white font-medium" data-group="veterans" data-lang="veterans">
                 🔹 Veterans & Entrepreneurs
             </button>
-            <button class="tab-btn px-4 py-2 rounded-lg bg-gray-200" data-group="elderly" data-lang="elderly">
+            <button class="tab-btn px-6 py-3 rounded-lg bg-gray-200 font-medium" data-group="elderly" data-lang="elderly">
                 🔶 Elder Care & Safety
             </button>
-            <button class="tab-btn px-4 py-2 rounded-lg bg-gray-200" data-group="kids" data-lang="kids">
+            <button class="tab-btn px-6 py-3 rounded-lg bg-gray-200 font-medium" data-group="kids" data-lang="kids">
                 🧸 Kids Learning Zone
             </button>
-            <button class="tab-btn px-4 py-2 rounded-lg bg-gray-200" data-group="language" data-lang="language">
+            <button class="tab-btn px-6 py-3 rounded-lg bg-gray-200 font-medium" data-group="language" data-lang="language">
                 🌐 Language Support
             </button>
         </div>
 
         <!-- K9 Grid -->
-        <div id="k9Grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div id="k9Grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             <!-- K9 cards will be dynamically inserted here -->
         </div>
     </main>
@@ -155,21 +181,28 @@
             });
         });
 
-        // Render K9 grid
+        // Render K9 grid with enhanced UI
         function renderK9Grid(group) {
             const grid = document.getElementById('k9Grid');
             grid.innerHTML = '';
 
             k9Groups[group].forEach(k9 => {
                 const card = document.createElement('div');
-                card.className = 'bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow';
+                card.className = 'k9-card bg-white rounded-xl shadow-lg overflow-hidden';
                 card.innerHTML = `
-                    <img src="/kennel/assets/${k9.image}" alt="${k9.name}" class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="text-xl font-semibold mb-2">${k9.name}</h3>
-                        <p class="text-gray-600 mb-4">${k9.description}</p>
+                    <div class="relative">
+                        <img src="/kennel/assets/${k9.image}" 
+                             alt="${k9.name}" 
+                             class="w-full h-48 object-cover"
+                             onerror="this.src='/kennel/assets/k9-placeholder.jpg'">
+                        <div class="absolute top-2 right-2 bg-white/80 backdrop-blur-sm px-2 py-1 rounded-full text-sm font-medium">
+                            ${k9.name}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-gray-600 mb-6 text-sm">${k9.description}</p>
                         <a href="/kennel/ai-k9s/${k9.name.toLowerCase()}.html" 
-                           class="block text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors"
+                           class="start-tool-btn block text-center text-white py-3 px-4 rounded-lg font-medium"
                            data-lang="startTool">
                             Start Tool
                         </a>

@@ -12,15 +12,14 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .card-glow {
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-            transition: all 0.3s ease;
+        .product-card {
+            transition: all 0.3s ease-in-out;
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
         }
-        .card-glow:hover {
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
-            transform: translateY(-5px);
+        .product-card:hover {
+            transform: scale(1.02) translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
         .cookie-bg {
             background-color: #FFF5E6;
@@ -44,15 +43,11 @@
             right: 20px;
             border: 3px solid white;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
         }
-        .product-card {
-            position: relative;
-            z-index: 1;
-            min-height: 500px;
-        }
-        .main-content {
-            position: relative;
-            z-index: 2;
+        .k9-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
         }
         .cta-button {
             background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
@@ -60,11 +55,48 @@
             font-weight: 600;
             padding: 1rem 2rem;
             border-radius: 9999px;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
         }
         .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(255, 215, 0, 0.5), 0 2px 4px -1px rgba(255, 165, 0, 0.3);
+        }
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .cta-button:hover::after {
+            transform: translateX(100%);
+        }
+        .tab-button {
+            transition: all 0.3s ease-in-out;
+            position: relative;
+        }
+        .tab-button::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            transition: all 0.3s ease-in-out;
+            transform: translateX(-50%);
+        }
+        .tab-button:hover::after {
+            width: 100%;
+        }
+        .tab-button.active::after {
+            width: 100%;
         }
     </style>
     <script>
@@ -158,24 +190,24 @@
     </script>
 </head>
 <body class="cookie-bg">
-    <!-- Header with Language Toggle -->
-    <header class="bg-white shadow-md">
+    <!-- Sticky Header with Language Toggle -->
+    <header class="bg-white/80 backdrop-blur-md shadow-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-4">
-                <a href="/kennel/apps/sweetcash/index.html" class="text-blue-500 hover:text-blue-600" data-lang="backToHome">
+                <a href="/kennel/apps/sweetcash/index.html" class="text-blue-500 hover:text-blue-600 transition-colors" data-lang="backToHome">
                     ← Back to Home
                 </a>
             </div>
             <div class="flex items-center space-x-4">
                 <span class="text-sm text-gray-600" data-lang="languageToggle">Language:</span>
-                <button onclick="toggleLanguage('en')" class="px-2 py-1 rounded hover:bg-gray-200">🇺🇸 EN</button>
-                <button onclick="toggleLanguage('es')" class="px-2 py-1 rounded hover:bg-gray-200">🇪🇸 ES</button>
+                <button onclick="toggleLanguage('en')" class="px-2 py-1 rounded hover:bg-gray-200 transition-colors">🇺🇸 EN</button>
+                <button onclick="toggleLanguage('es')" class="px-2 py-1 rounded hover:bg-gray-200 transition-colors">🇪🇸 ES</button>
             </div>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="container mx-auto px-4 py-8 main-content">
+    <main class="container mx-auto px-4 py-8">
         <div class="text-center mb-12">
             <h1 class="text-5xl font-bold mb-4 gold-gradient" data-lang="title">Sweet Ca$h Products</h1>
             <p class="text-2xl text-gray-700" data-lang="subtitle">Premium baked goods for profit</p>
@@ -186,10 +218,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Product Cards -->
                 <template id="product-card-template">
-                    <div class="bg-white rounded-2xl shadow-xl overflow-hidden card-glow product-card">
-                        <img src="" alt="" class="w-full h-64 object-cover">
-                        <div class="p-8">
+                    <div class="product-card rounded-2xl shadow-xl overflow-hidden">
+                        <div class="relative">
+                            <img src="" alt="" class="w-full h-64 object-cover">
                             <img src="/kennel/assets/images/k9-cooks-avatar.jpg" alt="K9 Cooks" class="k9-avatar">
+                        </div>
+                        <div class="p-8">
                             <h3 class="text-2xl font-bold mb-2 gold-gradient"></h3>
                             <p class="text-lg text-gray-600 mb-4"></p>
                             <p class="text-3xl font-bold text-orange-500 mb-6"></p>
@@ -217,33 +251,25 @@
             });
         }
 
-        // Render products
+        // Render products with enhanced UI
         function renderProducts() {
             const container = document.querySelector('.grid');
             const template = document.getElementById('product-card-template');
             
-            // Clear existing content
             container.innerHTML = '';
 
-            // Render cards
             products.forEach(item => {
                 const card = template.content.cloneNode(true);
                 
-                // Set image
                 const img = card.querySelector('img:first-of-type');
                 img.src = item.image;
                 img.alt = item.name;
+                img.onerror = () => img.src = '/kennel/apps/sweetcash/assets/images/placeholder.jpg';
                 
-                // Set name
                 card.querySelector('h3').textContent = item.name;
-                
-                // Set tagline
                 card.querySelector('p.text-lg').textContent = item.tagline;
-                
-                // Set price
                 card.querySelector('p.text-3xl').textContent = `$${item.price.toFixed(2)}`;
                 
-                // View More button
                 const viewMoreBtn = card.querySelector('button');
                 viewMoreBtn.onclick = () => window.location.href = `/kennel/apps/sweetcash/products/${item.id}.html`;
                 
@@ -257,16 +283,12 @@
             });
         }
 
-        // Initialize
+        // Initialize with enhanced error handling
         document.addEventListener('DOMContentLoaded', () => {
             try {
-                // Set initial language
                 toggleLanguage(defaultLang);
-                
-                // Render products
                 renderProducts();
                 
-                // Log page view
                 window.K9Shared.logUsage('Cooks', 'page_view', {
                     page: 'products'
                 }).catch(error => {
@@ -274,7 +296,6 @@
                 });
             } catch (error) {
                 console.error('Error initializing page:', error);
-                // Ensure basic functionality works even if initialization fails
                 toggleLanguage(defaultLang);
                 renderProducts();
             }
