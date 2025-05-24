@@ -22,7 +22,10 @@
                 viewDetails: "View Details",
                 price: "Price",
                 outOfStock: "Out of Stock",
-                comingSoon: "Coming Soon"
+                comingSoon: "Coming Soon",
+                productsTab: "Products",
+                diyKitsTab: "DIY Kits",
+                cateringTab: "Catering"
             },
             es: {
                 title: "Nuestros Productos",
@@ -33,7 +36,10 @@
                 viewDetails: "Ver Detalles",
                 price: "Precio",
                 outOfStock: "Agotado",
-                comingSoon: "Próximamente"
+                comingSoon: "Próximamente",
+                productsTab: "Productos",
+                diyKitsTab: "Kits DIY",
+                cateringTab: "Catering"
             }
         };
 
@@ -88,6 +94,30 @@
                 inStock: false
             }
         ];
+
+        // DIY Kits data
+        const diyKits = [
+            {
+                id: 'cookie-kit',
+                name: 'Cookie Kit',
+                image: '/kennel/apps/sweetcash/assets/images/cookie-kit.jpg',
+                price: 29.99,
+                description: 'Make your own Sweet Ca$h cookies at home',
+                inStock: true
+            }
+        ];
+
+        // Catering data
+        const cateringKits = [
+            {
+                id: 'corporate-box',
+                name: 'Corporate Cookie Box',
+                image: '/kennel/apps/sweetcash/assets/images/corporate-box.jpg',
+                price: 149.99,
+                description: '50 assorted cookies for your next meeting',
+                inStock: true
+            }
+        ];
     </script>
 </head>
 <body class="bg-gray-100">
@@ -114,27 +144,97 @@
             <p class="text-xl text-gray-600" data-lang="subtitle">Delicious treats made with love</p>
         </div>
 
-        <!-- Products Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <!-- Product Cards -->
-            <template id="product-card-template">
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                    <img src="" alt="" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2"></h3>
-                        <p class="text-gray-600 mb-4"></p>
-                        <p class="text-2xl font-bold text-orange-500 mb-4"></p>
-                        <div class="flex space-x-4">
-                            <button class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
-                                Add to Cart
-                            </button>
-                            <button class="flex-1 border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors" data-lang="viewDetails">
-                                View Details
-                            </button>
+        <!-- Tab Navigation -->
+        <div class="max-w-6xl mx-auto mb-8">
+            <div class="flex space-x-4 border-b">
+                <button onclick="switchTab('products')" class="px-6 py-3 font-semibold text-orange-500 border-b-2 border-orange-500" data-lang="productsTab">
+                    Products
+                </button>
+                <button onclick="switchTab('diy-kits')" class="px-6 py-3 font-semibold text-gray-500 hover:text-orange-500" data-lang="diyKitsTab">
+                    DIY Kits
+                </button>
+                <button onclick="switchTab('catering')" class="px-6 py-3 font-semibold text-gray-500 hover:text-orange-500" data-lang="cateringTab">
+                    Catering
+                </button>
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="max-w-6xl mx-auto">
+            <!-- Products Tab -->
+            <div id="products-tab" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Product Cards -->
+                    <template id="product-card-template">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            <img src="" alt="" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2"></h3>
+                                <p class="text-gray-600 mb-4"></p>
+                                <p class="text-2xl font-bold text-orange-500 mb-4"></p>
+                                <div class="flex space-x-4">
+                                    <button class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
+                                        Add to Cart
+                                    </button>
+                                    <button class="flex-1 border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors" data-lang="viewDetails">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </template>
                 </div>
-            </template>
+            </div>
+
+            <!-- DIY Kits Tab -->
+            <div id="diy-kits-tab" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- DIY Kit Cards -->
+                    <template id="diy-kit-card-template">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            <img src="" alt="" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2"></h3>
+                                <p class="text-gray-600 mb-4"></p>
+                                <p class="text-2xl font-bold text-orange-500 mb-4"></p>
+                                <div class="flex space-x-4">
+                                    <button class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
+                                        Add to Cart
+                                    </button>
+                                    <button class="flex-1 border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors" data-lang="viewDetails">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Catering Tab -->
+            <div id="catering-tab" class="tab-content hidden">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Catering Kit Cards -->
+                    <template id="catering-kit-card-template">
+                        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                            <img src="" alt="" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold mb-2"></h3>
+                                <p class="text-gray-600 mb-4"></p>
+                                <p class="text-2xl font-bold text-orange-500 mb-4"></p>
+                                <div class="flex space-x-4">
+                                    <button class="flex-1 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors" data-lang="addToCart">
+                                        Add to Cart
+                                    </button>
+                                    <button class="flex-1 border border-orange-500 text-orange-500 px-4 py-2 rounded-lg hover:bg-orange-50 transition-colors" data-lang="viewDetails">
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
         </div>
     </main>
 
@@ -150,32 +250,75 @@
             });
         }
 
-        // Render products
-        function renderProducts() {
-            const container = document.querySelector('.grid');
-            const template = document.getElementById('product-card-template');
+        // Switch tab function
+        function switchTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.add('hidden');
+            });
+
+            // Show selected tab content
+            document.getElementById(`${tabId}-tab`).classList.remove('hidden');
+
+            // Update tab button styles
+            document.querySelectorAll('.border-b button').forEach(button => {
+                button.classList.remove('text-orange-500', 'border-b-2', 'border-orange-500');
+                button.classList.add('text-gray-500');
+            });
+
+            // Style active tab button
+            const activeButton = document.querySelector(`button[onclick="switchTab('${tabId}')"]`);
+            activeButton.classList.remove('text-gray-500');
+            activeButton.classList.add('text-orange-500', 'border-b-2', 'border-orange-500');
+
+            // Render content for the selected tab
+            renderTabContent(tabId);
+        }
+
+        // Render tab content
+        function renderTabContent(tabId) {
+            const container = document.querySelector(`#${tabId}-tab .grid`);
+            const template = document.getElementById(`${tabId.replace('-', '_')}_card_template`);
             
-            products.forEach(product => {
+            // Clear existing content
+            container.innerHTML = '';
+
+            // Get data based on tab
+            let data;
+            switch (tabId) {
+                case 'products':
+                    data = products;
+                    break;
+                case 'diy-kits':
+                    data = diyKits;
+                    break;
+                case 'catering':
+                    data = cateringKits;
+                    break;
+            }
+
+            // Render cards
+            data.forEach(item => {
                 const card = template.content.cloneNode(true);
                 
-                // Set product image
+                // Set image
                 const img = card.querySelector('img');
-                img.src = product.image;
-                img.alt = product.name;
+                img.src = item.image;
+                img.alt = item.name;
                 
-                // Set product name
-                card.querySelector('h3').textContent = product.name;
+                // Set name
+                card.querySelector('h3').textContent = item.name;
                 
-                // Set product description
-                card.querySelector('p.text-gray-600').textContent = product.description;
+                // Set description
+                card.querySelector('p.text-gray-600').textContent = item.description;
                 
-                // Set product price
-                card.querySelector('p.text-2xl').textContent = `$${product.price.toFixed(2)}`;
+                // Set price
+                card.querySelector('p.text-2xl').textContent = `$${item.price.toFixed(2)}`;
                 
                 // Add to cart button
                 const addToCartBtn = card.querySelector('button:first-of-type');
-                addToCartBtn.onclick = () => addToCart(product.id);
-                if (!product.inStock) {
+                addToCartBtn.onclick = () => addToCart(tabId, item.id);
+                if (!item.inStock) {
                     addToCartBtn.disabled = true;
                     addToCartBtn.classList.add('opacity-50', 'cursor-not-allowed');
                     addToCartBtn.textContent = translations[document.documentElement.lang].outOfStock;
@@ -183,14 +326,14 @@
                 
                 // View details button
                 const viewDetailsBtn = card.querySelector('button:last-of-type');
-                viewDetailsBtn.onclick = () => viewDetails(product.id);
+                viewDetailsBtn.onclick = () => viewDetails(tabId, item.id);
                 
                 container.appendChild(card);
             });
         }
 
         // Add to cart function
-        function addToCart(productId) {
+        function addToCart(tabId, productId) {
             // Log cart addition
             window.K9Shared.logUsage('Cooks', 'cart_add', {
                 page: 'products',
@@ -202,7 +345,7 @@
         }
 
         // View details function
-        function viewDetails(productId) {
+        function viewDetails(tabId, productId) {
             // Log details view
             window.K9Shared.logUsage('Cooks', 'details_view', {
                 page: 'products',
@@ -215,13 +358,22 @@
 
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
-            toggleLanguage(defaultLang);
-            renderProducts();
-            
-            // Log page view
-            window.K9Shared.logUsage('Cooks', 'page_view', {
-                page: 'products'
-            }).catch(console.error);
+            try {
+                toggleLanguage(defaultLang);
+                switchTab('products');
+                
+                // Log page view
+                window.K9Shared.logUsage('Cooks', 'page_view', {
+                    page: 'products'
+                }).catch(error => {
+                    console.warn('Failed to log page view:', error);
+                });
+            } catch (error) {
+                console.error('Error initializing page:', error);
+                // Ensure basic functionality works even if initialization fails
+                toggleLanguage(defaultLang);
+                switchTab('products');
+            }
         });
     </script>
 </body>
