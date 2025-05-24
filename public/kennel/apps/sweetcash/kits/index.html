@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Kits - Sweet Ca$h Bakery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/kennel/assets/js/shared.js"></script>
+    <style>
+        .gold-gradient {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .kit-card {
+            transition: all 0.3s ease-in-out;
+            background: #ffffff;
+        }
+        .kit-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .k9-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            position: absolute;
+            top: -30px;
+            right: 20px;
+            border: 3px solid white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+        .k9-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        .cta-button {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(255, 215, 0, 0.5), 0 2px 4px -1px rgba(255, 165, 0, 0.3);
+        }
+        .chat-bubble {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .chat-bubble:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+    <script>
+        // Language detection and management
+        const userLang = navigator.language || navigator.userLanguage;
+        const defaultLang = userLang.startsWith('es') ? 'es' : 'en';
+        
+        // Language strings
+        const translations = {
+            en: {
+                title: "DIY Kits",
+                subtitle: "Bake your own profit",
+                backToProducts: "Back to Products",
+                languageToggle: "Language",
+                orderKit: "Order Kit",
+                bakes10: "Bakes 10 units",
+                kitPrice: "Kit Price",
+                sellPrice: "Sell Price (per unit)",
+                profitExample: "Profit Example",
+                revenue: "Revenue",
+                profit: "Profit",
+                askK9Cooks: "Ask K9 Cooks"
+            },
+            es: {
+                title: "Kits DIY",
+                subtitle: "Hornea tu propio beneficio",
+                backToProducts: "Volver a Productos",
+                languageToggle: "Idioma",
+                orderKit: "Pedir Kit",
+                bakes10: "Hornea 10 unidades",
+                kitPrice: "Precio del Kit",
+                sellPrice: "Precio de Venta (por unidad)",
+                profitExample: "Ejemplo de Beneficio",
+                revenue: "Ingresos",
+                profit: "Beneficio",
+                askK9Cooks: "Preguntar a K9 Cooks"
+            }
+        };
+
+        // DIY Kit data
+        const diyKits = [
+            {
+                id: 'cash-cookie',
+                name: 'Cash Cookie Kit 💰',
+                image: '/kennel/apps/sweetcash/assets/images/cash-cookie.jpg',
+                kitPrice: 12.00,
+                sellPrice: 3.00,
+                yield: 10,
+                description: 'Make 10 premium chocolate chip cookies'
+            },
+            {
+                id: 'brookie',
+                name: 'Brooklyn Brookie Kit 🏙️',
+                image: '/kennel/apps/sweetcash/assets/images/brookie.jpg',
+                kitPrice: 12.00,
+                sellPrice: 3.00,
+                yield: 10,
+                description: 'Create 10 delicious brownie-cookie hybrids'
+            },
+            {
+                id: 'almond-bar',
+                name: "Honey It's Almond Bar Kit 🌰",
+                image: '/kennel/apps/sweetcash/assets/images/almond-bar.jpg',
+                kitPrice: 12.00,
+                sellPrice: 3.00,
+                yield: 10,
+                description: 'Bake 10 premium almond bars'
+            },
+            {
+                id: 'blueberry-muffin',
+                name: "Blue's Blueberry Muffin Kit 🫐",
+                image: '/kennel/apps/sweetcash/assets/images/blueberry-muffin.jpg',
+                kitPrice: 12.00,
+                sellPrice: 3.00,
+                yield: 10,
+                description: 'Make 10 fresh blueberry muffins'
+            },
+            {
+                id: 'bran-muffin',
+                name: "It's a Bran Muffin Kit 🌾",
+                image: '/kennel/apps/sweetcash/assets/images/bran-muffin.jpg',
+                kitPrice: 12.00,
+                sellPrice: 3.00,
+                yield: 10,
+                description: 'Bake 10 wholesome bran muffins'
+            },
+            {
+                id: 'candy-month',
+                name: 'Candy of the Month Kit 🍬',
+                image: '/kennel/apps/sweetcash/assets/images/candy-month.jpg',
+                kitPrice: 12.00,
+                sellPrice: 3.00,
+                yield: 10,
+                description: 'Create 10 seasonal candy treats'
+            }
+        ];
+    </script>
+</head>
+<body class="bg-white">
+    <!-- Sticky Header with Language Toggle -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="/kennel/apps/sweetcash/products/index.html" class="text-blue-500 hover:text-blue-600 transition-colors" data-lang="backToProducts">
+                    ← Back to Products
+                </a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-600" data-lang="languageToggle">Language:</span>
+                <button onclick="toggleLanguage('en')" class="px-2 py-1 rounded hover:bg-gray-200 transition-colors">🇺🇸 EN</button>
+                <button onclick="toggleLanguage('es')" class="px-2 py-1 rounded hover:bg-gray-200 transition-colors">🇪🇸 ES</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-4 gold-gradient" data-lang="title">DIY Kits</h1>
+            <p class="text-2xl text-gray-700" data-lang="subtitle">Bake your own profit</p>
+        </div>
+
+        <!-- Kit Grid -->
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Kit Cards -->
+                <template id="kit-card-template">
+                    <div class="kit-card rounded-2xl shadow-md overflow-hidden">
+                        <div class="relative">
+                            <img src="" alt="" class="w-full h-64 object-cover">
+                            <img src="/kennel/assets/images/k9-cooks-avatar.jpg" alt="K9 Cooks" class="k9-avatar">
+                        </div>
+                        <div class="p-8">
+                            <h3 class="text-2xl font-bold mb-2 gold-gradient"></h3>
+                            <p class="text-lg text-gray-600 mb-4"></p>
+                            <div class="space-y-4 mb-6">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600" data-lang="bakes10">Bakes 10 units</span>
+                                    <span class="font-semibold"></span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600" data-lang="kitPrice">Kit Price</span>
+                                    <span class="font-semibold"></span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-gray-600" data-lang="sellPrice">Sell Price (per unit)</span>
+                                    <span class="font-semibold"></span>
+                                </div>
+                                <div class="border-t pt-4">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600" data-lang="revenue">Revenue</span>
+                                        <span class="font-semibold"></span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-gray-600" data-lang="profit">Profit</span>
+                                        <span class="font-semibold text-green-600"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="cta-button w-full" data-lang="orderKit">
+                                Order Kit
+                            </button>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </main>
+
+    <!-- K9 Cooks Chat Bubble -->
+    <div class="chat-bubble" onclick="openChat()">
+        <img src="/kennel/assets/images/k9-cooks-avatar.jpg" alt="K9 Cooks" class="w-12 h-12 rounded-full">
+    </div>
+
+    <script>
+        // Language toggle function
+        function toggleLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Render kits with enhanced UI
+        function renderKits() {
+            const container = document.querySelector('.grid');
+            const template = document.getElementById('kit-card-template');
+            
+            container.innerHTML = '';
+
+            diyKits.forEach(kit => {
+                const card = template.content.cloneNode(true);
+                
+                const img = card.querySelector('img:first-of-type');
+                img.src = kit.image;
+                img.alt = kit.name;
+                img.onerror = () => img.src = '/kennel/apps/sweetcash/assets/images/placeholder.jpg';
+                
+                card.querySelector('h3').textContent = kit.name;
+                card.querySelector('p.text-lg').textContent = kit.description;
+                
+                // Calculate profit
+                const revenue = kit.sellPrice * kit.yield;
+                const profit = revenue - kit.kitPrice;
+                
+                // Set prices and profit
+                card.querySelector('.space-y-4 .font-semibold:nth-of-type(1)').textContent = `$${kit.kitPrice.toFixed(2)}`;
+                card.querySelector('.space-y-4 .font-semibold:nth-of-type(2)').textContent = `$${kit.sellPrice.toFixed(2)}`;
+                card.querySelector('.border-t .font-semibold:nth-of-type(1)').textContent = `$${revenue.toFixed(2)}`;
+                card.querySelector('.border-t .font-semibold:nth-of-type(2)').textContent = `$${profit.toFixed(2)}`;
+                
+                const orderBtn = card.querySelector('button');
+                orderBtn.onclick = () => window.location.href = `/kennel/apps/sweetcash/kits/${kit.id}.html`;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Open K9 Cooks chat
+        function openChat() {
+            // Placeholder for chat integration
+            alert('K9 Cooks chat coming soon!');
+        }
+
+        // Initialize with enhanced error handling
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                toggleLanguage(defaultLang);
+                renderKits();
+                
+                window.K9Shared.logUsage('Cooks', 'page_view', {
+                    page: 'diy_kits'
+                }).catch(error => {
+                    console.warn('Failed to log page view:', error);
+                });
+            } catch (error) {
+                console.error('Error initializing page:', error);
+                toggleLanguage(defaultLang);
+                renderKits();
+            }
+        });
+    </script>
+</body>
+</html> 
