@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIY Kits - Sweet Ca$h Bakery</title>
+    <link rel="stylesheet" href="/sweetcash/assets/css/style.css">
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" style="background-image: url('/sweetcash/assets/images/kits-hero.jpg');">
+        <div class="container">
+            <div class="hero-content">
+                <h1>DIY Kits</h1>
+                <p class="mt-2">Become a master baker with our complete DIY kits.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Kits Overview -->
+    <section class="container mt-3">
+        <div class="text-center">
+            <h2>Make Our Treats at Home</h2>
+            <p class="mt-2">Each kit includes everything you need to create our signature treats, including:</p>
+            <ul class="feature-list">
+                <li>Pre-measured ingredients</li>
+                <li>Step-by-step instructions</li>
+                <li>Special tools and equipment</li>
+                <li>Cash surprise packaging</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Available Kits -->
+    <section class="container mt-3">
+        <div class="product-grid">
+            <!-- Cash Cookie Kit -->
+            <div class="product-card">
+                <img src="/sweetcash/assets/images/cash-cookie-kit.jpg" alt="Cash Cookie DIY Kit" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">Cash Cookie Kit</h3>
+                    <p class="product-price">$29.99</p>
+                    <p class="product-description">
+                        Make 12 delicious cookies with cash surprises inside.
+                    </p>
+                    <ul class="kit-contents">
+                        <li>Premium ingredients</li>
+                        <li>Cookie cutters</li>
+                        <li>Cash envelopes</li>
+                        <li>Detailed instructions</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Order Kit</a>
+                </div>
+            </div>
+
+            <!-- Brookie Kit -->
+            <div class="product-card">
+                <img src="/sweetcash/assets/images/brookie-kit.jpg" alt="Brookie DIY Kit" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">Brookie Kit</h3>
+                    <p class="product-price">$34.99</p>
+                    <p class="product-description">
+                        Create 8 decadent brookies with cash surprises.
+                    </p>
+                    <ul class="kit-contents">
+                        <li>Premium ingredients</li>
+                        <li>Baking pan</li>
+                        <li>Cash envelopes</li>
+                        <li>Detailed instructions</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Order Kit</a>
+                </div>
+            </div>
+
+            <!-- Muffin Kit -->
+            <div class="product-card">
+                <img src="/sweetcash/assets/images/muffin-kit.jpg" alt="Muffin DIY Kit" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">Muffin Kit</h3>
+                    <p class="product-price">$39.99</p>
+                    <p class="product-description">
+                        Bake 12 fluffy muffins with sweet surprises.
+                    </p>
+                    <ul class="kit-contents">
+                        <li>Premium ingredients</li>
+                        <li>Muffin tin</li>
+                        <li>Cash envelopes</li>
+                        <li>Detailed instructions</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Order Kit</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="container mt-3 mb-3">
+        <h2 class="text-center">How It Works</h2>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Order Your Kit</h3>
+                <p>Choose from our selection of DIY kits and place your order.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Receive Your Kit</h3>
+                <p>Get everything you need delivered to your door.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Follow Instructions</h3>
+                <p>Use our detailed guide to create your treats.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">4</div>
+                <h3>Add Surprises</h3>
+                <p>Include cash surprises in your finished treats.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include Footer -->
+    <div id="footer"></div>
+
+    <script>
+        // Load header and footer
+        fetch('/sweetcash/components/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+
+        fetch('/sweetcash/components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            });
+    </script>
+</body>
+</html> 

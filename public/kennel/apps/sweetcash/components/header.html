@@ -1,0 +1,36 @@
+<!-- Header Component -->
+<header class="header">
+    <nav class="nav container">
+        <a href="/sweetcash/" class="logo">Sweet Ca$h Bakery</a>
+        <div class="nav-links">
+            <a href="/sweetcash/products/" class="nav-link">Products</a>
+            <a href="/sweetcash/kits/" class="nav-link">DIY Kits</a>
+            <a href="/sweetcash/catering/" class="nav-link">Catering</a>
+            <a href="/sweetcash/join.html" class="nav-link">Become a Partner</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+    <div class="mobile-menu">
+        <a href="/sweetcash/products/" class="mobile-nav-link">Products</a>
+        <a href="/sweetcash/kits/" class="mobile-nav-link">DIY Kits</a>
+        <a href="/sweetcash/catering/" class="mobile-nav-link">Catering</a>
+        <a href="/sweetcash/join.html" class="mobile-nav-link">Become a Partner</a>
+    </div>
+</header>
+
+<script>
+    // Mobile menu toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuBtn = document.querySelector('.mobile-menu-btn');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        menuBtn.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+            menuBtn.classList.toggle('active');
+        });
+    });
+</script> 

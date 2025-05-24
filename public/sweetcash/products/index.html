@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products - Sweet Ca$h Bakery</title>
+    <link rel="stylesheet" href="/sweetcash/assets/css/style.css">
+</head>
+<body>
+    <!-- Include Header -->
+    <div id="header"></div>
+
+    <!-- Hero Section -->
+    <section class="hero" style="background-image: url('/sweetcash/assets/images/products-hero.jpg');">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Our Products</h1>
+                <p class="mt-2">Discover our delicious treats with sweet surprises inside.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="container mt-3">
+        <div class="product-grid">
+            <!-- Cash Cookie -->
+            <div class="product-card">
+                <img src="/sweetcash/assets/images/cash-cookie.jpg" alt="Cash Cookie" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">Cash Cookie</h3>
+                    <p class="product-price">$4.99</p>
+                    <p class="product-description">
+                        Our signature cookie with a sweet surprise inside.
+                    </p>
+                    <a href="/sweetcash/products/cash-cookie.html" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Brookie -->
+            <div class="product-card">
+                <img src="/sweetcash/assets/images/brookie.jpg" alt="Brookie" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">Brookie</h3>
+                    <p class="product-price">$5.99</p>
+                    <p class="product-description">
+                        The perfect marriage of brownie and cookie.
+                    </p>
+                    <a href="/sweetcash/products/brookie.html" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Muffin -->
+            <div class="product-card">
+                <img src="/sweetcash/assets/images/muffin.jpg" alt="Sweet Ca$h Muffin" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">Sweet Ca$h Muffin</h3>
+                    <p class="product-price">$6.99</p>
+                    <p class="product-description">
+                        A morning delight with a sweet surprise.
+                    </p>
+                    <a href="/sweetcash/products/muffin.html" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Granola -->
+            <div class="product-card">
+                <img src="/sweetcash/assets/images/granola.jpg" alt="Sweet Ca$h Granola" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">Sweet Ca$h Granola</h3>
+                    <p class="product-price">$12.99</p>
+                    <p class="product-description">
+                        Healthy and delicious with a sweet surprise.
+                    </p>
+                    <a href="/sweetcash/products/granola.html" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+
+            <!-- Fruit -->
+            <div class="product-card">
+                <img src="/sweetcash/assets/images/fruit.jpg" alt="Sweet Ca$h Fruit" class="product-image">
+                <div class="product-content">
+                    <h3 class="product-title">Sweet Ca$h Fruit</h3>
+                    <p class="product-price">$24.99</p>
+                    <p class="product-description">
+                        Fresh, seasonal fruits with a sweet surprise.
+                    </p>
+                    <a href="/sweetcash/products/fruit.html" class="btn btn-primary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIY Kits & Catering -->
+    <section class="container mt-3 mb-3">
+        <div class="options-grid">
+            <div class="option-card">
+                <h3>DIY Kits</h3>
+                <p>Make our delicious treats at home with our complete DIY kits.</p>
+                <a href="/sweetcash/kits/" class="btn btn-secondary">Explore Kits</a>
+            </div>
+            <div class="option-card">
+                <h3>Catering</h3>
+                <p>Order in bulk for your next event or celebration.</p>
+                <a href="/sweetcash/catering/" class="btn btn-secondary">Catering Info</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Include Footer -->
+    <div id="footer"></div>
+
+    <script>
+        // Load header and footer
+        fetch('/sweetcash/components/header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+
+        fetch('/sweetcash/components/footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer').innerHTML = data;
+            });
+    </script>
+</body>
+</html> 

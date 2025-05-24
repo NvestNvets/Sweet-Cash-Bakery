@@ -1,16 +1,27 @@
 {
-  "name": "sweet-cash-bakery-launch",
+  "name": "sweet-cash-bakery",
   "version": "1.0.0",
+  "description": "Sweet Ca$h Bakery - A premium bakery with sweet surprises",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "netlify dev",
+    "build": "echo 'No build step required'",
+    "deploy": "netlify deploy --prod"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "bakery",
+    "food-commerce",
+    "netlify",
+    "supabase"
+  ],
+  "author": "Sweet Ca$h Bakery",
+  "license": "UNLICENSED",
+  "private": true,
   "dependencies": {
-    "dotenv": "^16.5.0",
-    "node-fetch": "^3.3.2"
+    "@supabase/supabase-js": "^2.39.0",
+    "twilio": "^4.19.0"
   },
-  "description": ""
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  }
 }
