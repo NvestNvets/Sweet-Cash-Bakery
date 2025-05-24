@@ -359,8 +359,11 @@
         // Initialize
         document.addEventListener('DOMContentLoaded', () => {
             try {
+                // Set initial language
                 toggleLanguage(defaultLang);
-                switchTab('products');
+                
+                // Render initial tab content
+                renderTabContent('products');
                 
                 // Log page view
                 window.K9Shared.logUsage('Cooks', 'page_view', {
@@ -372,7 +375,7 @@
                 console.error('Error initializing page:', error);
                 // Ensure basic functionality works even if initialization fails
                 toggleLanguage(defaultLang);
-                switchTab('products');
+                renderTabContent('products');
             }
         });
     </script>
