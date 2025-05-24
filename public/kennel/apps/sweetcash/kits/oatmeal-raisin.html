@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oatmeal Raisin Cookie DIY Kit - Sweet Ca$h Bakery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/kennel/assets/js/shared.js"></script>
+    <script src="/kennel/apps/sweetcash/assets/js/kits.js"></script>
+    <style>
+        .gold-gradient {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cta-button {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: white;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease-in-out;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(255, 215, 0, 0.5), 0 2px 4px -1px rgba(255, 165, 0, 0.3);
+        }
+        .chat-button {
+            background: white;
+            color: #FFA500;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            border: 2px solid #FFA500;
+            transition: all 0.3s ease-in-out;
+        }
+        .chat-button:hover {
+            background: #FFA500;
+            color: white;
+            transform: translateY(-2px);
+        }
+        .share-button {
+            background: #4A90E2;
+            color: white;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease-in-out;
+        }
+        .share-button:hover {
+            background: #357ABD;
+            transform: translateY(-2px);
+        }
+        .chat-drawer {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            max-width: 400px;
+            height: 0;
+            background: white;
+            box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: height 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        .chat-drawer.open {
+            height: 500px;
+        }
+        .breadcrumb {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .breadcrumb a {
+            color: #4A90E2;
+            text-decoration: none;
+        }
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script>
+        // Language detection and management
+        const userLang = navigator.language || navigator.userLanguage;
+        const defaultLang = userLang.startsWith('es') ? 'es' : 'en';
+        
+        // Language strings
+        const translations = {
+            en: {
+                title: "Oatmeal Raisin Cookie DIY Kit",
+                subtitle: "Create 10 wholesome oatmeal raisin cookies",
+                backToKits: "Back to Kits",
+                languageToggle: "Language",
+                buyKit: "Buy Kit",
+                askK9Cooks: "Ask K9 Cooks",
+                shareWithFriend: "Share with Friend",
+                ingredients: "Ingredients",
+                instructions: "Baking Instructions",
+                wantBigger: "Want to go bigger?",
+                tryCatering: "Try our Catering Kit",
+                tryMega: "Get the Mega Kit",
+                breadcrumbHome: "Sweet Ca$h Bakery",
+                breadcrumbKits: "Kits",
+                breadcrumbProduct: "Oatmeal Raisin Cookie"
+            },
+            es: {
+                title: "Kit DIY de Galletas de Avena y Pasas",
+                subtitle: "Crea 10 galletas saludables de avena y pasas",
+                backToKits: "Volver a Kits",
+                languageToggle: "Idioma",
+                buyKit: "Comprar Kit",
+                askK9Cooks: "Preguntar a K9 Cooks",
+                shareWithFriend: "Compartir con Amigo",
+                ingredients: "Ingredientes",
+                instructions: "Instrucciones de Horneado",
+                wantBigger: "¿Quieres más?",
+                tryCatering: "Prueba nuestro Kit de Catering",
+                tryMega: "Obtén el Kit Mega",
+                breadcrumbHome: "Sweet Ca$h Bakery",
+                breadcrumbKits: "Kits",
+                breadcrumbProduct: "Galletas de Avena y Pasas"
+            }
+        };
+
+        // Product data
+        const productData = {
+            id: 'oatmeal-raisin',
+            name: 'Oatmeal Raisin Cookie Kit 🥣',
+            image: '/kennel/apps/sweetcash/assets/images/oatmeal-raisin.jpg',
+            kitPrice: 12.00,
+            sellPrice: 3.00,
+            yield: 10,
+            description: 'Create 10 wholesome oatmeal raisin cookies',
+            ingredients: [
+                'Premium oats',
+                'Raisins',
+                'Brown sugar',
+                'White sugar',
+                'Vanilla extract',
+                'Baking soda',
+                'Cinnamon',
+                'Salt',
+                'Butter substitute'
+            ],
+            instructions: [
+                'Preheat oven to 350°F (175°C)',
+                'Mix dry ingredients in a bowl',
+                'Cream butter and sugars',
+                'Add wet ingredients and mix',
+                'Fold in oats and raisins',
+                'Scoop onto baking sheet',
+                'Bake for 12-15 minutes',
+                'Let cool for 5 minutes'
+            ],
+            assistant_id: 'k9_cooks_oatmeal_raisin'
+        };
+    </script>
+</head>
+<body class="bg-white">
+    <!-- Sticky Header with Language Toggle -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <!-- Breadcrumb Navigation -->
+            <div class="breadcrumb mb-4">
+                <a href="/kennel/apps/sweetcash/index.html" data-lang="breadcrumbHome">Sweet Ca$h Bakery</a>
+                <span class="mx-2">/</span>
+                <a href="/kennel/apps/sweetcash/kits/index.html" data-lang="breadcrumbKits">Kits</a>
+                <span class="mx-2">/</span>
+                <span data-lang="breadcrumbProduct">Oatmeal Raisin Cookie</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <a href="/kennel/apps/sweetcash/kits/index.html" class="text-blue-500 hover:text-blue-600 transition-colors" data-lang="backToKits">
+                        ← Back to Kits
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600" data-lang="languageToggle">Language:</span>
+                    <button onclick="toggleLanguage('en')" class="px-2 py-1 rounded hover:bg-gray-200 transition-colors">🇺🇸 EN</button>
+                    <button onclick="toggleLanguage('es')" class="px-2 py-1 rounded hover:bg-gray-200 transition-colors">🇪🇸 ES</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Product Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold mb-4 gold-gradient" data-lang="title">Oatmeal Raisin Cookie DIY Kit</h1>
+                <p class="text-2xl text-gray-700" data-lang="subtitle">Create 10 wholesome oatmeal raisin cookies</p>
+            </div>
+
+            <!-- Product Image -->
+            <div class="mb-12">
+                <img src="/kennel/apps/sweetcash/assets/images/oatmeal-raisin.jpg" 
+                     alt="Oatmeal Raisin Cookie Kit" 
+                     class="w-full h-96 object-cover rounded-2xl"
+                     onerror="this.src='/kennel/apps/sweetcash/assets/images/placeholder.jpg'">
+            </div>
+
+            <!-- Product Details -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+                <!-- Ingredients -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-4" data-lang="ingredients">Ingredients</h2>
+                    <ul class="space-y-2">
+                        <template id="ingredient-template">
+                            <li class="flex items-center">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mr-2"></span>
+                                <span class="text-gray-700"></span>
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+
+                <!-- Instructions -->
+                <div>
+                    <h2 class="text-2xl font-bold mb-4" data-lang="instructions">Baking Instructions</h2>
+                    <ol class="space-y-4">
+                        <template id="instruction-template">
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 w-6 h-6 bg-orange-500 text-white rounded-full flex items-center justify-center mr-2"></span>
+                                <span class="text-gray-700"></span>
+                            </li>
+                        </template>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col md:flex-row gap-4 mb-12">
+                <button class="cta-button flex-1" onclick="buyKit()" data-lang="buyKit">
+                    Buy Kit
+                </button>
+                <button class="chat-button flex-1" onclick="openChat()" data-lang="askK9Cooks">
+                    Ask K9 Cooks
+                </button>
+                <button class="share-button flex-1" onclick="shareKit()" data-lang="shareWithFriend">
+                    Share with Friend
+                </button>
+            </div>
+
+            <!-- Upgrade Section -->
+            <div class="bg-gray-50 rounded-2xl p-8 text-center">
+                <h3 class="text-2xl font-bold mb-4" data-lang="wantBigger">Want to go bigger?</h3>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="/kennel/apps/sweetcash/catering/oatmeal-raisin.html" class="cta-button" data-lang="tryCatering">
+                        Try our Catering Kit
+                    </a>
+                    <a href="/kennel/apps/sweetcash/catering/mega-kit.html" class="cta-button" data-lang="tryMega">
+                        Get the Mega Kit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Chat Drawer -->
+    <div class="chat-drawer" id="chatDrawer">
+        <div class="p-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-bold">Chat with K9 Cooks</h3>
+                <button onclick="closeChat()" class="text-gray-500 hover:text-gray-700">
+                    ✕
+                </button>
+            </div>
+            <div class="h-[400px] overflow-y-auto mb-4 p-4 bg-gray-50 rounded-lg">
+                <!-- Chat messages will go here -->
+                <p class="text-gray-500 text-center">Chat coming soon!</p>
+            </div>
+            <div class="flex gap-2">
+                <input type="text" 
+                       placeholder="Type your message..." 
+                       class="flex-1 px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500">
+                <button class="cta-button px-6">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            K9Kits.initPage({
+                assistant_id: productData.assistant_id,
+                product_id: productData.id,
+                page_type: 'diy_kit',
+                translations,
+                defaultLang
+            });
+
+            // Render ingredients and instructions
+            const ingredientsList = document.querySelector('ul');
+            const ingredientTemplate = document.getElementById('ingredient-template');
+            
+            productData.ingredients.forEach(ingredient => {
+                const li = ingredientTemplate.content.cloneNode(true);
+                li.querySelector('span:last-child').textContent = ingredient;
+                ingredientsList.appendChild(li);
+            });
+
+            const instructionsList = document.querySelector('ol');
+            const instructionTemplate = document.getElementById('instruction-template');
+            
+            productData.instructions.forEach((instruction, index) => {
+                const li = instructionTemplate.content.cloneNode(true);
+                li.querySelector('span:first-child').textContent = index + 1;
+                li.querySelector('span:last-child').textContent = instruction;
+                instructionsList.appendChild(li);
+            });
+        });
+
+        // Action functions
+        function buyKit() {
+            // Placeholder for purchase flow
+            alert('Purchase flow coming soon!');
+        }
+
+        function openChat() {
+            K9Kits.chat.open();
+        }
+
+        function closeChat() {
+            K9Kits.chat.close();
+        }
+
+        function shareKit() {
+            K9Kits.share.shareKit(
+                'Oatmeal Raisin Cookie DIY Kit',
+                'Check out this amazing Oatmeal Raisin Cookie DIY Kit from Sweet Ca$h Bakery!',
+                window.location.href
+            );
+        }
+    </script>
+</body>
+</html> 

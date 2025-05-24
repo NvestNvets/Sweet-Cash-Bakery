@@ -101,7 +101,7 @@
             en: {
                 title: "Catering Kits",
                 subtitle: "Bulk orders for maximum profit",
-                backToProducts: "Back to Products",
+                backToProducts: "Back to Home",
                 languageToggle: "Language",
                 orderKit: "Order Kit",
                 bakes100: "Bakes 100 units",
@@ -112,8 +112,8 @@
                 profit: "Profit",
                 askK9Cooks: "Ask K9 Cooks",
                 megaKitTitle: "Mega Catering Kit",
-                megaKitSubtitle: "All 6 products, 100 units each",
-                megaKitYield: "Bakes 600 units total",
+                megaKitSubtitle: "All 5 products, 100 units each",
+                megaKitYield: "Bakes 500 units total",
                 megaKitPrice: "Kit Price",
                 megaKitRevenue: "Revenue Potential",
                 megaKitProfit: "Profit Potential"
@@ -121,7 +121,7 @@
             es: {
                 title: "Kits de Catering",
                 subtitle: "Pedidos al por mayor para máximo beneficio",
-                backToProducts: "Volver a Productos",
+                backToProducts: "Volver a Home",
                 languageToggle: "Idioma",
                 orderKit: "Pedir Kit",
                 bakes100: "Hornea 100 unidades",
@@ -132,8 +132,8 @@
                 profit: "Beneficio",
                 askK9Cooks: "Preguntar a K9 Cooks",
                 megaKitTitle: "Kit de Catering Mega",
-                megaKitSubtitle: "Los 6 productos, 100 unidades cada uno",
-                megaKitYield: "Hornea 600 unidades en total",
+                megaKitSubtitle: "Los 5 productos, 100 unidades cada uno",
+                megaKitYield: "Hornea 500 unidades en total",
                 megaKitPrice: "Precio del Kit",
                 megaKitRevenue: "Potencial de Ingresos",
                 megaKitProfit: "Potencial de Beneficio"
@@ -144,7 +144,7 @@
         const cateringKits = [
             {
                 id: 'cash-cookie',
-                name: 'Cash Cookie Kit 💰',
+                name: 'Cash Cookie Kit 🍪',
                 image: '/kennel/apps/sweetcash/assets/images/cash-cookie.jpg',
                 kitPrice: 99.00,
                 sellPrice: 3.00,
@@ -153,7 +153,7 @@
             },
             {
                 id: 'brookie',
-                name: 'Brooklyn Brookie Kit 🏙️',
+                name: 'Brooklyn Brookie Kit 🍫',
                 image: '/kennel/apps/sweetcash/assets/images/brookie.jpg',
                 kitPrice: 99.00,
                 sellPrice: 3.00,
@@ -171,7 +171,7 @@
             },
             {
                 id: 'blueberry-muffin',
-                name: "Blue's Blueberry Muffin Kit 🫐",
+                name: "Berry Blues Muffin Kit 🫐",
                 image: '/kennel/apps/sweetcash/assets/images/blueberry-muffin.jpg',
                 kitPrice: 99.00,
                 sellPrice: 3.00,
@@ -203,9 +203,9 @@
             id: 'mega-kit',
             name: 'Mega Catering Kit 🌟',
             image: '/kennel/apps/sweetcash/assets/images/mega-kit.jpg',
-            kitPrice: 579.00,
+            kitPrice: 495.00, // 5 products * $99.00
             sellPrice: 3.00,
-            yield: 600,
+            yield: 600, // 6 products * 100 units
             description: 'All 6 products, 100 units each'
         };
     </script>
@@ -215,8 +215,8 @@
     <header class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-4">
-                <a href="/kennel/apps/sweetcash/products/index.html" class="text-blue-500 hover:text-blue-600 transition-colors" data-lang="backToProducts">
-                    ← Back to Products
+                <a href="/kennel/apps/sweetcash/index.html" class="text-blue-500 hover:text-blue-600 transition-colors" data-lang="backToProducts">
+                    ← Back to Home
                 </a>
             </div>
             <div class="flex items-center space-x-4">
@@ -365,6 +365,28 @@
                 card.querySelector('.border-t .font-semibold:nth-of-type(1)').textContent = `$${revenue.toFixed(2)}`;
                 card.querySelector('.border-t .font-semibold:nth-of-type(2)').textContent = `$${profit.toFixed(2)}`;
                 
+                // Per-unit cost, sell, and profit lines
+                const perUnitCost = kit.kitPrice / kit.yield;
+                const perUnitProfit = kit.sellPrice - perUnitCost;
+                const margin = (perUnitProfit / kit.sellPrice) * 100;
+                
+                // Insert after profit block:
+                const perUnitBlock = document.createElement('div');
+                perUnitBlock.className = 'mt-2 text-sm';
+                perUnitBlock.innerHTML = `Cost per treat: $${perUnitCost.toFixed(2)}<br>Sell per treat: $${kit.sellPrice.toFixed(2)}<br>Profit per treat: $${perUnitProfit.toFixed(2)}`;
+                card.querySelector('.border-t').appendChild(perUnitBlock);
+                
+                // Visual bar for profit margin
+                const bar = document.createElement('div');
+                bar.className = 'w-full h-3 rounded-full bg-gray-200 mt-2 mb-1';
+                bar.innerHTML = `<div style="width:${margin}%;background:linear-gradient(90deg,#22c55e,#a3e635);height:100%;border-radius:inherit;"></div>`;
+                card.querySelector('.border-t').appendChild(bar);
+                
+                const marginLabel = document.createElement('div');
+                marginLabel.className = 'text-xs text-gray-500';
+                marginLabel.textContent = `${Math.round(margin)}% Margin`;
+                card.querySelector('.border-t').appendChild(marginLabel);
+                
                 const orderBtn = card.querySelector('button');
                 orderBtn.onclick = () => window.location.href = `/kennel/apps/sweetcash/catering/${kit.id}.html`;
                 
@@ -390,6 +412,28 @@
             megaCard.querySelector('.space-y-4 .font-semibold:nth-of-type(1)').textContent = `$${megaKit.kitPrice.toFixed(2)}`;
             megaCard.querySelector('.border-t .font-semibold:nth-of-type(1)').textContent = `$${megaRevenue.toFixed(2)}`;
             megaCard.querySelector('.border-t .font-semibold:nth-of-type(2)').textContent = `$${megaProfit.toFixed(2)}`;
+            
+            // Per-unit cost, sell, and profit lines
+            const megaPerUnitCost = megaKit.kitPrice / megaKit.yield;
+            const megaPerUnitProfit = megaKit.sellPrice - megaPerUnitCost;
+            const megaMargin = (megaPerUnitProfit / megaKit.sellPrice) * 100;
+            
+            // Insert after profit block:
+            const megaPerUnitBlock = document.createElement('div');
+            megaPerUnitBlock.className = 'mt-2 text-sm';
+            megaPerUnitBlock.innerHTML = `Cost per treat: $${megaPerUnitCost.toFixed(2)}<br>Sell per treat: $${megaKit.sellPrice.toFixed(2)}<br>Profit per treat: $${megaPerUnitProfit.toFixed(2)}`;
+            megaCard.querySelector('.border-t').appendChild(megaPerUnitBlock);
+            
+            // Visual bar for profit margin
+            const megaBar = document.createElement('div');
+            megaBar.className = 'w-full h-3 rounded-full bg-gray-200 mt-2 mb-1';
+            megaBar.innerHTML = `<div style="width:${megaMargin}%;background:linear-gradient(90deg,#22c55e,#a3e635);height:100%;border-radius:inherit;"></div>`;
+            megaCard.querySelector('.border-t').appendChild(megaBar);
+            
+            const megaMarginLabel = document.createElement('div');
+            megaMarginLabel.className = 'text-xs text-gray-500';
+            megaMarginLabel.textContent = `${Math.round(megaMargin)}% Margin`;
+            megaCard.querySelector('.border-t').appendChild(megaMarginLabel);
             
             const megaOrderBtn = megaCard.querySelector('button');
             megaOrderBtn.onclick = () => window.location.href = `/kennel/apps/sweetcash/catering/mega-kit.html`;

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candy of the Month - Sweet Ca$h Bakery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/kennel/assets/js/shared.js"></script>
+    <style>
+        .gold-gradient {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .chat-bubble {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        .chat-bubble:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+    <script>
+        // Language detection and management
+        const userLang = navigator.language || navigator.userLanguage;
+        const defaultLang = userLang.startsWith('es') ? 'es' : 'en';
+        
+        // Language strings
+        const translations = {
+            en: {
+                title: "Candy of the Month",
+                subtitle: "Monthly surprise, monthly profits",
+                backToProducts: "Back to Products",
+                languageToggle: "Language",
+                buyNow: "Buy Now",
+                tryDiy: "Try DIY Kit",
+                bulkOrder: "Bulk Catering Kit",
+                askK9Cooks: "Ask K9 Cooks",
+                description: "Our Candy of the Month is a special seasonal treat that changes every month. Each piece comes with a sweet surprise inside, making it a perfect gift or treat for any occasion.",
+                ingredients: "Premium seasonal ingredients, natural flavors, and our special surprise element",
+                storage: "Store in a cool, dry place. Best consumed within 30 days.",
+                chatPlaceholder: "Need help with this product? Ask K9 Cooks."
+            },
+            es: {
+                title: "Caramelo del Mes",
+                subtitle: "Sorpresa mensual, ganancias mensuales",
+                backToProducts: "Volver a Productos",
+                languageToggle: "Idioma",
+                buyNow: "Comprar Ahora",
+                tryDiy: "Probar Kit DIY",
+                bulkOrder: "Kit de Catering",
+                askK9Cooks: "Preguntar a K9 Cooks",
+                description: "Nuestro Caramelo del Mes es un dulce especial de temporada que cambia cada mes. Cada pieza viene con una dulce sorpresa dentro, haciéndolo un regalo o dulce perfecto para cualquier ocasión.",
+                ingredients: "Ingredientes premium de temporada, sabores naturales y nuestro elemento sorpresa especial",
+                storage: "Almacenar en un lugar fresco y seco. Mejor consumir dentro de 30 días.",
+                chatPlaceholder: "¿Necesitas ayuda con este producto? Pregunta a K9 Cooks."
+            }
+        };
+    </script>
+</head>
+<body class="bg-white">
+    <!-- Sticky Header with Language Toggle -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="/kennel/apps/sweetcash/products/index.html" class="text-blue-500 hover:text-blue-600 transition-colors" data-lang="backToProducts">
+                    ← Back to Products
+                </a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-600" data-lang="languageToggle">Language:</span>
+                <button onclick="toggleLanguage('en')" class="px-2 py-1 rounded hover:bg-gray-200 transition-colors">🇺🇸 EN</button>
+                <button onclick="toggleLanguage('es')" class="px-2 py-1 rounded hover:bg-gray-200 transition-colors">🇪🇸 ES</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <!-- Product Header -->
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold mb-4 gold-gradient" data-lang="title">Candy of the Month 🍬</h1>
+                <p class="text-2xl text-gray-700" data-lang="subtitle">Monthly surprise, monthly profits</p>
+            </div>
+
+            <!-- Product Image -->
+            <div class="mb-12">
+                <img src="/kennel/apps/sweetcash/assets/images/candy-month.jpg" 
+                     alt="Candy of the Month" 
+                     class="w-full h-96 object-cover rounded-2xl"
+                     onerror="this.src='/kennel/apps/sweetcash/assets/images/placeholder.jpg'">
+            </div>
+
+            <!-- Product Details -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold mb-4" data-lang="description">Description</h2>
+                    <p class="text-gray-600 mb-6" data-lang="description"></p>
+                    <h3 class="text-xl font-semibold mb-2">Ingredients</h3>
+                    <p class="text-gray-600 mb-6" data-lang="ingredients"></p>
+                    <h3 class="text-xl font-semibold mb-2">Storage</h3>
+                    <p class="text-gray-600" data-lang="storage"></p>
+                </div>
+                <div>
+                    <div class="bg-gray-50 p-6 rounded-2xl">
+                        <h2 class="text-2xl font-bold mb-4">$7.99</h2>
+                        <div class="space-y-4">
+                            <button class="w-full bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors" data-lang="buyNow">
+                                Buy Now
+                            </button>
+                            <button class="w-full border border-orange-500 text-orange-500 px-6 py-3 rounded-lg hover:bg-orange-50 transition-colors" data-lang="tryDiy">
+                                Try DIY Kit
+                            </button>
+                            <button class="w-full border border-orange-500 text-orange-500 px-6 py-3 rounded-lg hover:bg-orange-50 transition-colors" data-lang="bulkOrder">
+                                Bulk Catering Kit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- K9 Cooks Chat Bubble -->
+    <div class="chat-bubble" onclick="openChat()">
+        <img src="/kennel/assets/images/k9-cooks-avatar.jpg" alt="K9 Cooks" class="w-12 h-12 rounded-full">
+    </div>
+
+    <script>
+        // Language toggle function
+        function toggleLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Open K9 Cooks chat
+        function openChat() {
+            alert(translations[document.documentElement.lang].chatPlaceholder);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleLanguage(defaultLang);
+        });
+    </script>
+</body>
+</html> 
