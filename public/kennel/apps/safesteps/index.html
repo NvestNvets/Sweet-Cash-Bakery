@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K9 SafeSteps - Safety Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/kennel/assets/js/shared.js"></script>
+    <script>
+        // Language detection and management
+        const userLang = navigator.language || navigator.userLanguage;
+        const defaultLang = userLang.startsWith('es') ? 'es' : 'en';
+        
+        // Language strings
+        const translations = {
+            en: {
+                title: "K9 SafeSteps",
+                subtitle: "Safety Guide",
+                backToProfile: "Back to Profile",
+                languageToggle: "Language",
+                underConstruction: "This tool is under construction",
+                comingSoon: "Coming Soon",
+                description: "We're working hard to bring you the best safety guide experience. Check back soon!"
+            },
+            es: {
+                title: "K9 SafeSteps",
+                subtitle: "Safety Guide",
+                backToProfile: "Volver al Perfil",
+                languageToggle: "Idioma",
+                underConstruction: "Esta herramienta está en construcción",
+                comingSoon: "Próximamente",
+                description: "Estamos trabajando duro para brindarte la mejor experiencia de safety guide. ¡Vuelve pronto!"
+            }
+        };
+    </script>
+</head>
+<body class="bg-gray-100">
+    <!-- Header with Language Toggle -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <a href="/kennel/ai-k9s/safesteps.html" class="text-blue-500 hover:text-blue-600" data-lang="backToProfile">
+                    ← Back to Profile
+                </a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-600" data-lang="languageToggle">Language:</span>
+                <button onclick="toggleLanguage('en')" class="px-2 py-1 rounded hover:bg-gray-200">🇺🇸 EN</button>
+                <button onclick="toggleLanguage('es')" class="px-2 py-1 rounded hover:bg-gray-200">🇪🇸 ES</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-8 text-center">
+                <h1 class="text-3xl font-bold mb-2" data-lang="title">K9 SafeSteps</h1>
+                <h2 class="text-xl text-gray-600 mb-8" data-lang="subtitle">Safety Guide</h2>
+
+                <div class="mb-8">
+                    <h3 class="text-2xl font-semibold text-blue-500 mb-4" data-lang="underConstruction">This tool is under construction</h3>
+                    <p class="text-gray-600" data-lang="description">
+                        We're working hard to bring you the best safety guide experience. Check back soon!
+                    </p>
+                </div>
+
+                <div class="animate-pulse">
+                    <div class="h-4 bg-gray-200 rounded w-3/4 mx-auto mb-4"></div>
+                    <div class="h-4 bg-gray-200 rounded w-1/2 mx-auto mb-4"></div>
+                    <div class="h-4 bg-gray-200 rounded w-2/3 mx-auto"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Language toggle function
+        function toggleLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Initialize with default language
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleLanguage(defaultLang);
+            // Log tool access
+            window.K9Shared.logUsage('SafeSteps', 'tool_access', {
+                status: 'under_construction'
+            }).catch(console.error);
+        });
+    </script>
+</body>
+</html>

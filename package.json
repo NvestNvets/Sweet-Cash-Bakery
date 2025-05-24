@@ -1,21 +1,21 @@
 {
-  "name": "sweet-cash-bakery",
+  "name": "ai-k9-kennel",
   "version": "1.0.0",
-  "description": "Sweet Ca$h Bakery - A premium bakery with sweet surprises",
+  "description": "AI K9 Kennel - Your AI Assistant Pack",
   "main": "index.js",
   "scripts": {
     "dev": "netlify dev",
     "build": "echo 'No build step required'",
-    "deploy": "netlify deploy --prod"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "bakery",
-    "food-commerce",
-    "netlify",
-    "supabase"
+    "ai",
+    "assistant",
+    "k9",
+    "tools"
   ],
-  "author": "Sweet Ca$h Bakery",
-  "license": "UNLICENSED",
+  "author": "",
+  "license": "ISC",
   "private": true,
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0",

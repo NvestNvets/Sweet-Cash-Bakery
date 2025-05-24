@@ -3,122 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI K9 Kennel - Your AI-Powered Tool Suite</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>AI K9 Kennel - Your AI Assistant Pack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Language detection and management
+        const userLang = navigator.language || navigator.userLanguage;
+        const defaultLang = userLang.startsWith('es') ? 'es' : 'en';
+        
+        // Language strings
+        const translations = {
+            en: {
+                title: "AI K9 Kennel",
+                subtitle: "Your AI Assistant Pack",
+                veterans: "Veterans & Entrepreneurs",
+                elderly: "Elder Care & Safety",
+                kids: "Kids Learning Zone",
+                startTool: "Start Tool",
+                languageToggle: "Language"
+            },
+            es: {
+                title: "Perrera AI K9",
+                subtitle: "Tu Paquete de Asistentes AI",
+                veterans: "Veteranos y Emprendedores",
+                elderly: "Cuidado y Seguridad",
+                kids: "Zona de Aprendizaje",
+                startTool: "Iniciar Herramienta",
+                languageToggle: "Idioma"
+            }
+        };
+
+        // K9 Groups
+        const k9Groups = {
+            veterans: [
+                { name: "Cooks", description: "AI-Powered Cooking Assistant", image: "k9-cooks.jpg" },
+                { name: "Codee", description: "Digital Product Builder", image: "k9-codee.jpg" },
+                { name: "Affilia", description: "Affiliate Manager", image: "k9-affilia.jpg" },
+                { name: "VetBuddy", description: "Veteran Support", image: "k9-vetbuddy.jpg" },
+                { name: "SilverGuide", description: "Senior Business Guide", image: "k9-silverguide.jpg" },
+                { name: "CashK9", description: "Financial Assistant", image: "k9-cashk9.jpg" },
+                { name: "MarketRover", description: "Market Research", image: "k9-marketrover.jpg" },
+                { name: "RentRanger", description: "Housing Assistant", image: "k9-rentranger.jpg" },
+                { name: "DocuPaw", description: "Document Helper", image: "k9-docupaw.jpg" },
+                { name: "BizBreed", description: "Business Planning", image: "k9-bizbreed.jpg" },
+                { name: "TaskTail", description: "Task Manager", image: "k9-tasktail.jpg" },
+                { name: "PromoPup", description: "Marketing Assistant", image: "k9-promopup.jpg" },
+                { name: "LegalLab", description: "Legal Guide", image: "k9-legallab.jpg" },
+                { name: "VetCounsel", description: "Veteran Counseling", image: "k9-vetcounsel.jpg" },
+                { name: "EventPup", description: "Event Planner", image: "k9-eventpup.jpg" },
+                { name: "OrderFetch", description: "Order Manager", image: "k9-orderfetch.jpg" },
+                { name: "LeadRetriever", description: "Lead Generator", image: "k9-leadretriever.jpg" },
+                { name: "SkillSetter", description: "Skill Development", image: "k9-skillsetter.jpg" },
+                { name: "VetLink", description: "Veteran Network", image: "k9-vetlink.jpg" },
+                { name: "CrisisCanine", description: "Crisis Support", image: "k9-crisiscanine.jpg" },
+                { name: "PawPrint", description: "Digital Identity", image: "k9-pawprint.jpg" }
+            ],
+            elderly: [
+                { name: "SecurePaw", description: "Safety Assistant", image: "k9-securepaw.jpg" },
+                { name: "RescueRover", description: "Emergency Helper", image: "k9-rescuerover.jpg" },
+                { name: "MealMate", description: "Meal Planning", image: "k9-mealmate.jpg" },
+                { name: "CareCanine", description: "Care Assistant", image: "k9-carecanine.jpg" },
+                { name: "HealthHound", description: "Health Monitor", image: "k9-healthhound.jpg" },
+                { name: "TransitTail", description: "Transport Helper", image: "k9-transittail.jpg" },
+                { name: "BarkBoost", description: "Wellness Coach", image: "k9-barkboost.jpg" },
+                { name: "SafeBark", description: "Safety Monitor", image: "k9-safebark.jpg" },
+                { name: "FamilyFetch", description: "Family Connect", image: "k9-familyfetch.jpg" }
+            ],
+            kids: [
+                { name: "KiddyCodee", description: "Kids Coding", image: "k9-kiddycodee.jpg" },
+                { name: "SnackTracker", description: "Healthy Snacks", image: "k9-snacktracker.jpg" },
+                { name: "TalkieTails", description: "Language Learning", image: "k9-talkietails.jpg" },
+                { name: "PlayPal", description: "Learning Games", image: "k9-playpal.jpg" },
+                { name: "FriendFetch", description: "Social Skills", image: "k9-friendfetch.jpg" },
+                { name: "BuddyMath", description: "Math Helper", image: "k9-buddymath.jpg" },
+                { name: "DrawDoggo", description: "Art Assistant", image: "k9-drawdoggo.jpg" },
+                { name: "SafeSteps", description: "Safety Guide", image: "k9-safesteps.jpg" },
+                { name: "Readie", description: "Reading Helper", image: "k9-readie.jpg" },
+                { name: "DreamPup", description: "Dream Journal", image: "k9-dreampup.jpg" }
+            ],
+            language: [
+                { name: "LinguaPup", description: "Language Learning", image: "k9-linguapup.jpg" },
+                { name: "TransTail", description: "Translation Helper", image: "k9-transtail.jpg" },
+                { name: "WordWag", description: "Vocabulary Builder", image: "k9-wordwag.jpg" },
+                { name: "SpeakSpot", description: "Speaking Practice", image: "k9-speakspot.jpg" }
+            ]
+        };
+    </script>
 </head>
 <body class="bg-gray-100">
-    <!-- Header -->
+    <!-- Header with Language Toggle -->
     <header class="bg-white shadow-md">
-        <nav class="container mx-auto px-6 py-3">
-            <div class="flex items-center justify-between">
-                <div class="text-xl font-bold text-gray-800">AI K9 Kennel</div>
-                <div class="flex space-x-4">
-                    <a href="/kennel/ai-k9s/cooks.html" class="text-gray-600 hover:text-gray-800">K9 Cooks</a>
-                    <a href="/kennel/ai-k9s/brandly.html" class="text-gray-600 hover:text-gray-800">K9 Brandly</a>
-                    <a href="/kennel/ai-k9s/codee.html" class="text-gray-600 hover:text-gray-800">K9 Codee</a>
-                </div>
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-800" data-lang="title">AI K9 Kennel</h1>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-gray-600" data-lang="languageToggle">Language:</span>
+                <button onclick="toggleLanguage('en')" class="px-2 py-1 rounded hover:bg-gray-200">🇺🇸 EN</button>
+                <button onclick="toggleLanguage('es')" class="px-2 py-1 rounded hover:bg-gray-200">🇪🇸 ES</button>
             </div>
-        </nav>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-20">
-        <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">Welcome to the AI K9 Kennel</h1>
-            <p class="text-xl mb-8">Your suite of AI-powered tools for cooking, branding, and coding</p>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Group Tabs -->
+        <div class="flex space-x-4 mb-8 overflow-x-auto">
+            <button class="tab-btn active px-4 py-2 rounded-lg bg-blue-500 text-white" data-group="veterans" data-lang="veterans">
+                🔹 Veterans & Entrepreneurs
+            </button>
+            <button class="tab-btn px-4 py-2 rounded-lg bg-gray-200" data-group="elderly" data-lang="elderly">
+                🔶 Elder Care & Safety
+            </button>
+            <button class="tab-btn px-4 py-2 rounded-lg bg-gray-200" data-group="kids" data-lang="kids">
+                🧸 Kids Learning Zone
+            </button>
+            <button class="tab-btn px-4 py-2 rounded-lg bg-gray-200" data-group="language" data-lang="language">
+                🌐 Language Support
+            </button>
         </div>
-    </section>
 
-    <!-- K9 Team Grid -->
-    <section class="py-16">
-        <div class="container mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center mb-12">Meet Your AI K9 Team</h2>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
-                <!-- K9 Cooks -->
-                <a href="/kennel/apps/sweetcash/products/index.html" class="group">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
-                        <img src="/kennel/assets/k9-cooks.jpg" alt="K9 Cooks" class="w-full h-48 object-cover">
-                        <div class="p-4 text-center">
-                            <h3 class="text-xl font-bold text-gray-800">K9 Cooks</h3>
-                            <p class="text-sm text-gray-600 mt-1">Sweet Ca$h Bakery</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- K9 Brandly -->
-                <a href="/kennel/apps/yobrand/index.html" class="group">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
-                        <img src="/kennel/assets/k9-brandly.jpg" alt="K9 Brandly" class="w-full h-48 object-cover">
-                        <div class="p-4 text-center">
-                            <h3 class="text-xl font-bold text-gray-800">K9 Brandly</h3>
-                            <p class="text-sm text-gray-600 mt-1">YoBrand</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- K9 Codee -->
-                <a href="/kennel/apps/codee/index.html" class="group">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
-                        <img src="/kennel/assets/k9-codee.jpg" alt="K9 Codee" class="w-full h-48 object-cover">
-                        <div class="p-4 text-center">
-                            <h3 class="text-xl font-bold text-gray-800">K9 Codee</h3>
-                            <p class="text-sm text-gray-600 mt-1">DigiApp Builder</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- K9 Affilia -->
-                <a href="/kennel/ai-k9s/affilia.html" class="group">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
-                        <img src="/kennel/assets/k9-affilia.jpg" alt="K9 Affilia" class="w-full h-48 object-cover">
-                        <div class="p-4 text-center">
-                            <h3 class="text-xl font-bold text-gray-800">K9 Affilia</h3>
-                            <p class="text-sm text-gray-600 mt-1">Affiliate Tools</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- K9 Licencia -->
-                <a href="/kennel/ai-k9s/licencia.html" class="group">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
-                        <img src="/kennel/assets/k9-licencia.jpg" alt="K9 Licencia" class="w-full h-48 object-cover">
-                        <div class="p-4 text-center">
-                            <h3 class="text-xl font-bold text-gray-800">K9 Licencia</h3>
-                            <p class="text-sm text-gray-600 mt-1">ServeSafe + Legal Guide</p>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- K9 iFeelYa -->
-                <a href="/kennel/ai-k9s/ifeelya.html" class="group">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 group-hover:shadow-xl group-hover:-translate-y-1">
-                        <img src="/kennel/assets/k9-ifeelya.jpg" alt="K9 iFeelYa" class="w-full h-48 object-cover">
-                        <div class="p-4 text-center">
-                            <h3 class="text-xl font-bold text-gray-800">K9 iFeelYa</h3>
-                            <p class="text-sm text-gray-600 mt-1">Motivation + Support</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
+        <!-- K9 Grid -->
+        <div id="k9Grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- K9 cards will be dynamically inserted here -->
         </div>
-    </section>
+    </main>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <p>&copy; 2024 AI K9 Kennel. All rights reserved.</p>
-                    <p class="text-sm text-gray-400 mt-2">Powered by GPT + Twilio + Supabase</p>
-                </div>
-                <div class="flex space-x-4">
-                    <a href="#" class="hover:text-gray-300">Privacy Policy</a>
-                    <a href="#" class="hover:text-gray-300">Terms of Service</a>
-                    <a href="#" class="hover:text-gray-300">Contact</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <script>
+        // Language toggle function
+        function toggleLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-lang]').forEach(element => {
+                const key = element.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active state
+                document.querySelectorAll('.tab-btn').forEach(btn => {
+                    btn.classList.remove('bg-blue-500', 'text-white');
+                    btn.classList.add('bg-gray-200');
+                });
+                button.classList.remove('bg-gray-200');
+                button.classList.add('bg-blue-500', 'text-white');
+
+                // Show selected group
+                const group = button.getAttribute('data-group');
+                renderK9Grid(group);
+            });
+        });
+
+        // Render K9 grid
+        function renderK9Grid(group) {
+            const grid = document.getElementById('k9Grid');
+            grid.innerHTML = '';
+
+            k9Groups[group].forEach(k9 => {
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow';
+                card.innerHTML = `
+                    <img src="/kennel/assets/${k9.image}" alt="${k9.name}" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h3 class="text-xl font-semibold mb-2">${k9.name}</h3>
+                        <p class="text-gray-600 mb-4">${k9.description}</p>
+                        <a href="/kennel/ai-k9s/${k9.name.toLowerCase()}.html" 
+                           class="block text-center bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition-colors"
+                           data-lang="startTool">
+                            Start Tool
+                        </a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Initialize with default language and first group
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleLanguage(defaultLang);
+            renderK9Grid('veterans');
+        });
+    </script>
 </body>
 </html> 
